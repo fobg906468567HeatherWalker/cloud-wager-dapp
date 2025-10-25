@@ -57,6 +57,16 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        sky: {
+          light: "hsl(var(--sky-light))",
+          mid: "hsl(var(--sky-mid))",
+          deep: "hsl(var(--sky-deep))",
+        },
+        cloud: {
+          white: "hsl(var(--cloud-white))",
+          light: "hsl(var(--cloud-light))",
+          shadow: "hsl(var(--cloud-shadow))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,25 +75,27 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        cloudFloat: {
+          "0%, 100%": { transform: "translateX(0) translateY(0)", opacity: "0.8" },
+          "50%": { transform: "translateX(20px) translateY(-10px)", opacity: "1" },
+        },
+        weatherPulse: {
+          "0%, 100%": { transform: "scale(1)", opacity: "1" },
+          "50%": { transform: "scale(1.05)", opacity: "0.9" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "cloud-float": "cloudFloat 20s ease-in-out infinite",
+        "weather-pulse": "weatherPulse 3s ease-in-out infinite",
       },
     },
   },
