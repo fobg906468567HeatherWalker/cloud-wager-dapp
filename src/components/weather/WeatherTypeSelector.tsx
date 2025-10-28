@@ -1,66 +1,42 @@
 import { Sun, Cloud, CloudRain, CloudSnow } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { WeatherType } from "@/pages/WeatherDApp";
+import type { WeatherCondition } from "@/types/weather";
+import { CONDITION_METADATA, WEATHER_CONDITION_ORDER } from "@/lib/weather";
 
 interface WeatherTypeSelectorProps {
-  selectedWeather: WeatherType | null;
-  onWeatherChange: (weather: WeatherType) => void;
+  selectedWeather?: WeatherCondition;
+  onWeatherChange: (weather: WeatherCondition) => void;
 }
 
-const WEATHER_TYPES = [
-  {
-    type: "sunny" as WeatherType,
-    icon: Sun,
-    label: "Sunny",
-    color: "text-accent",
-    bgColor: "hover:bg-accent/10",
-  },
-  {
-    type: "cloudy" as WeatherType,
-    icon: Cloud,
-    label: "Cloudy",
-    color: "text-muted-foreground",
-    bgColor: "hover:bg-muted/50",
-  },
-  {
-    type: "rainy" as WeatherType,
-    icon: CloudRain,
-    label: "Rainy",
-    color: "text-primary",
-    bgColor: "hover:bg-primary/10",
-  },
-  {
-    type: "snowy" as WeatherType,
-    icon: CloudSnow,
-    label: "Snowy",
-    color: "text-secondary",
-    bgColor: "hover:bg-secondary/10",
-  },
-];
+const ICON_MAP: Record<WeatherCondition, typeof Sun> = {
+  sunny: Sun,
+  cloudy: Cloud,
+  rainy: CloudRain,
+  snowy: CloudSnow,
+};
 
-export const WeatherTypeSelector = ({
-  selectedWeather,
-  onWeatherChange,
-}: WeatherTypeSelectorProps) => {
+export const WeatherTypeSelector = ({ selectedWeather, onWeatherChange }: WeatherTypeSelectorProps) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {WEATHER_TYPES.map(({ type, icon: Icon, label, color, bgColor }) => (
-        <Button
-          key={type}
-          variant={selectedWeather === type ? "default" : "outline"}
-          className={`h-32 flex flex-col items-center justify-center gap-3 transition-smooth ${
-            selectedWeather !== type && bgColor
-          }`}
-          onClick={() => onWeatherChange(type)}
-        >
-          <Icon
-            className={`w-12 h-12 ${
-              selectedWeather === type ? "text-primary-foreground" : color
-            } weather-pulse`}
-          />
-          <span className="text-lg font-semibold">{label}</span>
-        </Button>
-      ))}
+      {WEATHER_CONDITION_ORDER.map((condition) => {
+        const Icon = ICON_MAP[condition];
+        const meta = CONDITION_METADATA[condition];
+        const isActive = selectedWeather === condition;
+        return (
+          <Button
+            key={condition}
+            variant={isActive ? "default" : "outline"}
+            className={`h-32 flex flex-col items-center justify-center gap-3 transition-smooth ${
+              isActive ? "" : "hover:bg-muted/40"
+            }`}
+            onClick={() => onWeatherChange(condition)}
+          >
+            <Icon className={`w-12 h-12 ${isActive ? "text-primary-foreground" : "text-primary"} weather-pulse`} />
+            <span className="text-lg font-semibold">{meta.label}</span>
+            <span className="text-xs text-muted-foreground">{meta.description}</span>
+          </Button>
+        );
+      })}
     </div>
   );
 };
