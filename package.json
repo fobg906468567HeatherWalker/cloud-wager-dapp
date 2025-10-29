@@ -13,7 +13,11 @@
     "hardhat:test": "npx hardhat test",
     "deploy:sepolia": "npx hardhat run scripts/deploy-sepolia.cjs --network sepolia",
     "export-abi": "node scripts/export-abi.cjs",
-    "verify:sepolia": "npx hardhat verify --network sepolia"
+    "verify:sepolia": "npx hardhat verify --network sepolia",
+    "git:commit": "bash scripts/git-commit.sh",
+    "git:status": "git status",
+    "git:log": "git log --oneline --graph --decorate --all",
+    "git:push": "git push origin main"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
