@@ -1,0 +1,8 @@
+{
+  "network": "sepolia",
+  "contractAddress": "0x7278D5fa7bb9eca147038859ff1b4b0f9e0fd48C",
+  "deployer": "0xA4CDb88D0547c9905FCFcF3b77A79dEE789BdDf8",
+  "gateway": "0x33347831500F1e73f0ccCBb95c9f86B94d7b1123",
+  "timestamp": "2025-10-29T03:57:14.432Z",
+  "txHash": "0xc46b284c499ef165d8b1d8c6177beadb6136146a5a63231c7bcf44a36b4fc141"
+}

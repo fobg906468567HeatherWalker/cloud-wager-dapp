@@ -27,18 +27,29 @@ module.exports = {
 
   networks: {
     sepolia: {
-      accounts: {
-        mnemonic: process.env.MNEMONIC || "test test test test test test test test test test test junk",
-        path: "m/44'/60'/0'/0/",
-        count: 10,
-      },
+      // Use PRIVATE_KEY if available, otherwise fall back to MNEMONIC
+      accounts: process.env.PRIVATE_KEY
+        ? [process.env.PRIVATE_KEY]
+        : {
+            mnemonic: process.env.MNEMONIC || "test test test test test test test test test test test junk",
+            path: "m/44'/60'/0'/0/",
+            count: 10,
+          },
       chainId: 11155111,
       url: process.env.SEPOLIA_RPC_URL || "https://ethereum-sepolia-rpc.publicnode.com",
     },
     hardhat: {
-      accounts: {
-        mnemonic: process.env.MNEMONIC || "test test test test test test test test test test test junk",
-      },
+      accounts: process.env.PRIVATE_KEY
+        ? {
+            accountsBalance: "10000000000000000000000", // 10000 ETH
+            accounts: [{
+              privateKey: process.env.PRIVATE_KEY,
+              balance: "10000000000000000000000"
+            }]
+          }
+        : {
+            mnemonic: process.env.MNEMONIC || "test test test test test test test test test test test junk",
+          },
       chainId: 31337,
     },
   },

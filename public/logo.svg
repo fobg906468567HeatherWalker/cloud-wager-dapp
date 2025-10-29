@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="95" fill="#0EA5E9" opacity="0.1"/>
+
+  <!-- Weather Elements Group -->
+  <g id="weather-elements">
+    <!-- Sun (Top Left) -->
+    <g transform="translate(60, 55)">
+      <circle cx="0" cy="0" r="18" fill="#FCD34D"/>
+      <!-- Sun rays -->
+      <line x1="0" y1="-28" x2="0" y2="-22" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+      <line x1="0" y1="28" x2="0" y2="22" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+      <line x1="-28" y1="0" x2="-22" y2="0" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+      <line x1="28" y1="0" x2="22" y2="0" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+      <line x1="-20" y1="-20" x2="-15" y2="-15" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+      <line x1="20" y1="-20" x2="15" y2="-15" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+      <line x1="-20" y1="20" x2="-15" y2="15" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+      <line x1="20" y1="20" x2="15" y2="15" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- Snowflake (Top Right) -->
+    <g transform="translate(140, 55)">
+      <line x1="0" y1="-15" x2="0" y2="15" stroke="#60A5FA" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-13" y1="-7.5" x2="13" y2="7.5" stroke="#60A5FA" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-13" y1="7.5" x2="13" y2="-7.5" stroke="#60A5FA" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="0" cy="0" r="4" fill="#60A5FA"/>
+    </g>
+
+    <!-- Raindrop (Bottom Left) -->
+    <g transform="translate(60, 145)">
+      <path d="M 0 -12 Q -8 -4 -8 4 Q -8 12 0 12 Q 8 12 8 4 Q 8 -4 0 -12 Z" fill="#3B82F6"/>
+    </g>
+
+    <!-- Cloud (Bottom Right) -->
+    <g transform="translate(140, 145)">
+      <ellipse cx="-8" cy="0" rx="10" ry="8" fill="#93C5FD"/>
+      <ellipse cx="0" cy="-3" rx="12" ry="10" fill="#93C5FD"/>
+      <ellipse cx="8" cy="0" rx="10" ry="8" fill="#93C5FD"/>
+    </g>
+  </g>
+
+  <!-- Shield/Lock Icon (Center) - Representing Privacy/FHE -->
+  <g transform="translate(100, 100)">
+    <!-- Shield -->
+    <path d="M 0 -30 L 20 -22 L 20 0 Q 20 18 0 28 Q -20 18 -20 0 L -20 -22 Z"
+          fill="none" stroke="#0EA5E9" stroke-width="4"/>
+
+    <!-- Lock -->
+    <rect x="-8" y="0" width="16" height="14" rx="2" fill="#0EA5E9"/>
+    <path d="M -6 0 L -6 -6 Q -6 -12 0 -12 Q 6 -12 6 -6 L 6 0"
+          fill="none" stroke="#0EA5E9" stroke-width="3"/>
+    <circle cx="0" cy="7" r="3" fill="white"/>
+  </g>
+
+  <!-- Project Name Arc (Optional - can be removed for cleaner look) -->
+  <text text-anchor="middle" x="100" y="185"
+        font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0EA5E9">
+    WeatherWager
+  </text>
+</svg>

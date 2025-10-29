@@ -1,36 +1,101 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- ============================================ -->
+    <!-- Meta Tags -->
+    <!-- ============================================ -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="manifest" href="/manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0EA5E9" />
-
-    <title>WeatherWager ☀️ Predict Tomorrow's Weather</title>
-    <meta name="description" content="Place encrypted bets on weather forecasts using Fully Homomorphic Encryption. Privacy-preserving weather prediction market powered by Zama FHE." />
     <meta name="author" content="WeatherWager" />
-    <meta name="keywords" content="weather, prediction, FHE, encryption, betting, Zama, blockchain, Web3" />
+    <meta name="keywords" content="weather prediction, FHE, Fully Homomorphic Encryption, privacy, blockchain, Web3, Zama, Sepolia, encrypted betting, weather forecast, DApp, cryptocurrency" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- ============================================ -->
+    <!-- Favicon and App Icons -->
+    <!-- ============================================ -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- ============================================ -->
+    <!-- Primary Meta Tags -->
+    <!-- ============================================ -->
+    <title>WeatherWager ☀️🌧️❄️☁️ | Privacy-Preserving Weather Predictions on Blockchain</title>
+    <meta name="title" content="WeatherWager - Predict Tomorrow's Weather with Complete Privacy" />
+    <meta name="description" content="Place encrypted bets on weather forecasts using Fully Homomorphic Encryption (FHE). Privacy-preserving weather prediction market powered by Zama on Ethereum Sepolia. Your predictions remain private until settlement." />
+
+    <!-- ============================================ -->
+    <!-- Open Graph / Facebook Meta Tags -->
+    <!-- ============================================ -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://weatherwager.app/" />
     <meta property="og:title" content="WeatherWager - Privacy-Preserving Weather Predictions" />
-    <meta property="og:description" content="Predict tomorrow's weather with FHE encryption and win rewards for accurate forecasts" />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:description" content="Predict tomorrow's weather with FHE encryption and win rewards for accurate forecasts. Your predictions stay private until market settlement." />
+    <meta property="og:image" content="/logo.svg" />
+    <meta property="og:site_name" content="WeatherWager" />
+    <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter -->
+    <!-- ============================================ -->
+    <!-- Twitter Meta Tags -->
+    <!-- ============================================ -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://weatherwager.app/" />
     <meta name="twitter:title" content="WeatherWager - Encrypted Weather Predictions" />
-    <meta name="twitter:description" content="Predict weather with complete privacy using FHE technology" />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:description" content="Predict weather with complete privacy using FHE technology. Place encrypted bets and win rewards." />
+    <meta name="twitter:image" content="/logo.svg" />
+    <meta name="twitter:creator" content="@WeatherWager" />
 
+    <!-- ============================================ -->
+    <!-- Additional Meta Tags -->
+    <!-- ============================================ -->
+    <meta name="application-name" content="WeatherWager" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="WeatherWager" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- ============================================ -->
+    <!-- Performance Optimizations -->
+    <!-- ============================================ -->
     <!-- Preconnect to required domains for better performance -->
-    <link rel="preconnect" href="https://ethereum-sepolia-rpc.publicnode.com" />
-    <link rel="preconnect" href="https://cdn.zama.ai" />
+    <link rel="preconnect" href="https://ethereum-sepolia-rpc.publicnode.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.zama.ai" crossorigin />
+    <link rel="dns-prefetch" href="https://sepolia.etherscan.io" />
+
+    <!-- ============================================ -->
+    <!-- FHE SDK - Loaded from Zama CDN -->
+    <!-- ============================================ -->
+    <!--
+      Load Zama FHE SDK via CDN for client-side encryption
+      Version: 0.2.0 (stable)
+      Documentation: https://docs.zama.ai/fhevm
+    -->
+    <script src="https://cdn.zama.ai/relayer-sdk-js/0.2.0/relayer-sdk-js.umd.cjs" defer></script>
   </head>
 
   <body>
+    <!-- Root element for React app -->
     <div id="root"></div>
+
+    <!-- Main application script -->
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- ============================================ -->
+    <!-- No JavaScript Fallback -->
+    <!-- ============================================ -->
+    <noscript>
+      <div style="padding: 40px; text-align: center; font-family: system-ui, sans-serif;">
+        <h1>🌤️ WeatherWager</h1>
+        <p style="color: #64748b; max-width: 500px; margin: 20px auto;">
+          JavaScript is required to run this application.
+          Please enable JavaScript in your browser to use WeatherWager.
+        </p>
+        <p style="color: #94a3b8; font-size: 14px;">
+          WeatherWager is a Web3 DApp that requires JavaScript for wallet connection and FHE encryption.
+        </p>
+      </div>
+    </noscript>
   </body>
 </html>

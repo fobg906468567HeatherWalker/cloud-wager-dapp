@@ -1,8 +1,14 @@
 {
-  "name": "WeatherWager",
+  "name": "WeatherWager - Privacy-Preserving Weather Predictions",
   "short_name": "WeatherWager",
-  "description": "Privacy-preserving weather prediction market using FHE",
+  "description": "Predict tomorrow's weather with complete privacy using FHE encryption. Place encrypted bets on weather forecasts and win rewards.",
   "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
     {
       "src": "/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
@@ -12,5 +18,7 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#0EA5E9",
-  "background_color": "#E0F2FE"
+  "background_color": "#E0F2FE",
+  "categories": ["finance", "utilities", "weather"],
+  "orientation": "portrait-primary"
 }
