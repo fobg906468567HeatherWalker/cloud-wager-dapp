@@ -15,7 +15,7 @@
 
 **Git 作者信息** (来自 `.env`):
 ```
-用户名 Username: chadellis202403011298
+用户名 Username: fobg906468567HeatherWalker
 邮箱 Email: argent-quiver.0h@icloud.com
 ```
 

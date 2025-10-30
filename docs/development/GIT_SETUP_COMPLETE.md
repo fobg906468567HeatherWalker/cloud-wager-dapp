@@ -10,7 +10,7 @@
 
 ### 1. Git 作者配置 ✓
 - **配置来源**: `.env` 文件
-- **用户名**: `chadellis202403011298`
+- **用户名**: `fobg906468567HeatherWalker`
 - **邮箱**: `argent-quiver.0h@icloud.com`
 - **状态**: ✅ 已应用到本地仓库
 
@@ -22,7 +22,7 @@
 ### 3. 历史提交作者更新 ✓
 - **问题**: 之前有 `gpt-engineer-app[bot]` 的提交
 - **解决**: ✅ 使用 `git filter-branch` 重写历史
-- **结果**: 所有提交作者都是 `chadellis202403011298`
+- **结果**: 所有提交作者都是 `fobg906468567HeatherWalker`
 
 ### 4. GitHub 仓库设置 ✓
 - **可见性**: ✅ 已设置为公开 (Public)
@@ -79,7 +79,7 @@ git push origin main
 
 ### Git 配置
 ```bash
-用户名: chadellis202403011298
+用户名: fobg906468567HeatherWalker
 邮箱: argent-quiver.0h@icloud.com
 ```
 
@@ -238,6 +238,6 @@ git push origin main --force
 ---
 
 **配置时间**: 2025-10-30
-**作者**: chadellis202403011298
+**作者**: fobg906468567HeatherWalker
 **项目**: WeatherWager
 **仓库**: https://github.com/fobg906468567HeatherWalker/cloud-wager-dapp

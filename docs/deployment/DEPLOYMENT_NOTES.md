@@ -20,7 +20,7 @@ The WeatherWager smart contract has been updated for proper fhEVM deployment to 
 ### 3. Environment Configuration (`.env`)
 - ✅ Added `.env` to `.gitignore` (security)
 - ✅ Added `MNEMONIC` variable requirement
-- ✅ Git author configured from `.env` (chadellis202403011298)
+- ✅ Git author configured from `.env` (fobg906468567HeatherWalker)
 
 ## ⚠️ Action Required
 
