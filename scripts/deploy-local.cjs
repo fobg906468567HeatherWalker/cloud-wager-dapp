@@ -1,31 +1,32 @@
 /**
- * Deployment Script for WeatherWager Contract
- * 
- * Deploys to Sepolia testnet with proper configuration
+ * Local Hardhat Network Deployment Script
+ *
+ * Uses fhEVM mocks for local testing
  */
 
 const hre = require("hardhat");
 
 async function main() {
-  console.log("🚀 Starting WeatherWager deployment to Sepolia...\n");
+  console.log("🚀 Starting local deployment of WeatherWager...\n");
 
   // Get deployer account
   const [deployer] = await hre.ethers.getSigners();
   console.log("📍 Deploying from account:", deployer.address);
-  
+
   const balance = await hre.ethers.provider.getBalance(deployer.address);
   console.log("💰 Account balance:", hre.ethers.formatEther(balance), "ETH\n");
 
-  // FHE Gateway address for Sepolia testnet
-  const GATEWAY_ADDRESS = "0x33347831500F1e73f0ccCBb95c9f86B94d7b1123"; // Zama FHE Gateway on Sepolia
-  
+  // Use mock gateway address for local network
+  const GATEWAY_ADDRESS = deployer.address; // Use deployer address as gateway for local testing
+
   console.log("📋 Deployment Configuration:");
   console.log("   Admin:", deployer.address);
   console.log("   Gateway:", GATEWAY_ADDRESS);
+  console.log("   Network: localhost (Hardhat)");
   console.log("");
 
-  // Deploy contract (SDK-compatible fixed version)
-  console.log("📦 Deploying WeatherWagerBookFixed contract (SDK-compatible)...");
+  // Deploy contract
+  console.log("📦 Deploying WeatherWagerBookFixed contract...");
   const WeatherWagerBookFixed = await hre.ethers.getContractFactory("WeatherWagerBookFixed");
   const contract = await WeatherWagerBookFixed.deploy(deployer.address, GATEWAY_ADDRESS);
 
@@ -38,33 +39,40 @@ async function main() {
 
   // Create initial city markets
   console.log("🏙️  Creating initial city markets...");
-  
+
   const cities = [
-    { id: 1, name: "New York", lockTime: Math.floor(Date.now() / 1000) + 86400 },
-    { id: 2, name: "London", lockTime: Math.floor(Date.now() / 1000) + 86400 },
-    { id: 3, name: "Tokyo", lockTime: Math.floor(Date.now() / 1000) + 86400 },
+    { id: 1, name: "New York" },
+    { id: 2, name: "London" },
+    { id: 3, name: "Tokyo" },
   ];
+
+  const lockTime = Math.floor(Date.now() / 1000) + 86400; // 1 day from now
 
   for (const city of cities) {
     try {
-      const tx = await contract.createCityMarket(city.id, 4, city.lockTime);
+      const tx = await contract.createCityMarket(city.id, 4, lockTime);
       await tx.wait();
-      console.log(`   ✓ Created market for ${city.name} (ID: ${city.id})`);
+      console.log(`   ✓ Created ${city.name} market (ID: ${city.id})`);
     } catch (error) {
-      console.log(`   ✗ Failed to create market for ${city.name}:`, error.message);
+      console.log(`   ✗ Failed to create ${city.name} market:`, error.message);
     }
   }
 
   console.log("");
-  console.log("🎉 Deployment completed successfully!");
+  console.log("🎉 Local deployment completed!");
   console.log("");
-  console.log("📝 Next steps:");
-  console.log("   1. Verify contract on Etherscan:");
-  console.log(`      npx hardhat verify --network sepolia ${contractAddress} "${deployer.address}" "${GATEWAY_ADDRESS}"`);
-  console.log("   2. Update VITE_CONTRACT_ADDRESS in .env:");
+  console.log("📝 Next Steps:");
+  console.log("   1. Copy contract address to .env file:");
   console.log(`      VITE_CONTRACT_ADDRESS=${contractAddress}`);
-  console.log("   3. Export ABI:");
+  console.log("   2. Export ABI:");
   console.log("      npm run export-abi");
+  console.log("   3. Restart frontend development server");
+  console.log("   4. Connect MetaMask to localhost:8545");
+  console.log("");
+  console.log("💡 Tip: Make sure MetaMask is connected to localhost network");
+  console.log("   - Network name: Localhost 8545");
+  console.log("   - RPC URL: http://localhost:8545");
+  console.log("   - Chain ID: 31337");
   console.log("");
 }
 

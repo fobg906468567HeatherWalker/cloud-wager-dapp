@@ -1,0 +1,221 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e6]:
+    - generic [ref=e12]:
+      - img [ref=e15]
+      - heading "WeatherWager" [level=1] [ref=e18]
+      - paragraph [ref=e19]: Predict tomorrow's weather with privacy-preserving technology
+      - paragraph [ref=e20]: Place encrypted bets on weather forecasts using Fully Homomorphic Encryption. Your predictions stay private until settlement.
+      - generic [ref=e21]:
+        - button "Start Forecasting" [ref=e22] [cursor=pointer]:
+          - text: Start Forecasting
+          - img
+        - button "Learn How It Works" [ref=e23] [cursor=pointer]
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - heading "Fully Encrypted" [level=3] [ref=e26]
+          - paragraph [ref=e27]: Predictions encrypted with FHE before submission
+        - generic [ref=e28]:
+          - heading "Fair Settlement" [level=3] [ref=e29]
+          - paragraph [ref=e30]: Verified with official weather data sources
+        - generic [ref=e31]:
+          - heading "Win Rewards" [level=3] [ref=e32]
+          - paragraph [ref=e33]: Accurate forecasts earn cryptocurrency rewards
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - heading "Featured Cities" [level=2] [ref=e37]
+        - paragraph [ref=e38]: Choose from popular cities around the world
+      - generic [ref=e39]:
+        - generic [ref=e40] [cursor=pointer]:
+          - generic [ref=e41]:
+            - generic [ref=e42]:
+              - heading "New York" [level=3] [ref=e43]:
+                - img [ref=e44]
+                - text: New York
+              - paragraph [ref=e47]: USA
+            - generic [ref=e48]:
+              - paragraph [ref=e49]: 18°
+              - paragraph [ref=e50]: Partly Cloudy
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - generic [ref=e53]:
+                - img [ref=e54]
+                - text: Temperature
+              - generic [ref=e56]: 18°C
+            - generic [ref=e57]:
+              - generic [ref=e58]:
+                - img [ref=e59]
+                - text: Humidity
+              - generic [ref=e62]: 65%
+            - generic [ref=e63]:
+              - generic [ref=e64]:
+                - img [ref=e65]
+                - text: Wind Speed
+              - generic [ref=e69]: 12 km/h
+        - generic [ref=e70] [cursor=pointer]:
+          - generic [ref=e71]:
+            - generic [ref=e72]:
+              - heading "London" [level=3] [ref=e73]:
+                - img [ref=e74]
+                - text: London
+              - paragraph [ref=e77]: UK
+            - generic [ref=e78]:
+              - paragraph [ref=e79]: 14°
+              - paragraph [ref=e80]: Rainy
+          - generic [ref=e81]:
+            - generic [ref=e82]:
+              - generic [ref=e83]:
+                - img [ref=e84]
+                - text: Temperature
+              - generic [ref=e86]: 14°C
+            - generic [ref=e87]:
+              - generic [ref=e88]:
+                - img [ref=e89]
+                - text: Humidity
+              - generic [ref=e92]: 78%
+            - generic [ref=e93]:
+              - generic [ref=e94]:
+                - img [ref=e95]
+                - text: Wind Speed
+              - generic [ref=e99]: 15 km/h
+        - generic [ref=e100] [cursor=pointer]:
+          - generic [ref=e101]:
+            - generic [ref=e102]:
+              - heading "Tokyo" [level=3] [ref=e103]:
+                - img [ref=e104]
+                - text: Tokyo
+              - paragraph [ref=e107]: Japan
+            - generic [ref=e108]:
+              - paragraph [ref=e109]: 22°
+              - paragraph [ref=e110]: Sunny
+          - generic [ref=e111]:
+            - generic [ref=e112]:
+              - generic [ref=e113]:
+                - img [ref=e114]
+                - text: Temperature
+              - generic [ref=e116]: 22°C
+            - generic [ref=e117]:
+              - generic [ref=e118]:
+                - img [ref=e119]
+                - text: Humidity
+              - generic [ref=e122]: 60%
+            - generic [ref=e123]:
+              - generic [ref=e124]:
+                - img [ref=e125]
+                - text: Wind Speed
+              - generic [ref=e129]: 8 km/h
+        - generic [ref=e130] [cursor=pointer]:
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - heading "Paris" [level=3] [ref=e133]:
+                - img [ref=e134]
+                - text: Paris
+              - paragraph [ref=e137]: France
+            - generic [ref=e138]:
+              - paragraph [ref=e139]: 16°
+              - paragraph [ref=e140]: Cloudy
+          - generic [ref=e141]:
+            - generic [ref=e142]:
+              - generic [ref=e143]:
+                - img [ref=e144]
+                - text: Temperature
+              - generic [ref=e146]: 16°C
+            - generic [ref=e147]:
+              - generic [ref=e148]:
+                - img [ref=e149]
+                - text: Humidity
+              - generic [ref=e152]: 70%
+            - generic [ref=e153]:
+              - generic [ref=e154]:
+                - img [ref=e155]
+                - text: Wind Speed
+              - generic [ref=e159]: 10 km/h
+        - generic [ref=e160] [cursor=pointer]:
+          - generic [ref=e161]:
+            - generic [ref=e162]:
+              - heading "Sydney" [level=3] [ref=e163]:
+                - img [ref=e164]
+                - text: Sydney
+              - paragraph [ref=e167]: Australia
+            - generic [ref=e168]:
+              - paragraph [ref=e169]: 25°
+              - paragraph [ref=e170]: Sunny
+          - generic [ref=e171]:
+            - generic [ref=e172]:
+              - generic [ref=e173]:
+                - img [ref=e174]
+                - text: Temperature
+              - generic [ref=e176]: 25°C
+            - generic [ref=e177]:
+              - generic [ref=e178]:
+                - img [ref=e179]
+                - text: Humidity
+              - generic [ref=e182]: 55%
+            - generic [ref=e183]:
+              - generic [ref=e184]:
+                - img [ref=e185]
+                - text: Wind Speed
+              - generic [ref=e189]: 18 km/h
+        - generic [ref=e190] [cursor=pointer]:
+          - generic [ref=e191]:
+            - generic [ref=e192]:
+              - heading "Singapore" [level=3] [ref=e193]:
+                - img [ref=e194]
+                - text: Singapore
+              - paragraph [ref=e197]: Singapore
+            - generic [ref=e198]:
+              - paragraph [ref=e199]: 28°
+              - paragraph [ref=e200]: Humid
+          - generic [ref=e201]:
+            - generic [ref=e202]:
+              - generic [ref=e203]:
+                - img [ref=e204]
+                - text: Temperature
+              - generic [ref=e206]: 28°C
+            - generic [ref=e207]:
+              - generic [ref=e208]:
+                - img [ref=e209]
+                - text: Humidity
+              - generic [ref=e212]: 85%
+            - generic [ref=e213]:
+              - generic [ref=e214]:
+                - img [ref=e215]
+                - text: Wind Speed
+              - generic [ref=e219]: 6 km/h
+      - button "View All Cities" [ref=e221] [cursor=pointer]
+    - generic [ref=e223]:
+      - generic [ref=e224]:
+        - heading "How It Works" [level=2] [ref=e225]
+        - paragraph [ref=e226]: Four simple steps to start forecasting weather and earning rewards with complete privacy
+      - generic [ref=e227]:
+        - generic [ref=e230]:
+          - generic [ref=e231]: "1"
+          - img [ref=e234]
+          - heading "Connect Wallet" [level=3] [ref=e237]
+          - paragraph [ref=e238]: Link your crypto wallet to get started with WeatherWager
+        - generic [ref=e241]:
+          - generic [ref=e242]: "2"
+          - img [ref=e245]
+          - heading "Choose City" [level=3] [ref=e248]
+          - paragraph [ref=e249]: Select from cities worldwide to make your weather prediction
+        - generic [ref=e252]:
+          - generic [ref=e253]: "3"
+          - img [ref=e256]
+          - heading "Encrypt & Bet" [level=3] [ref=e259]
+          - paragraph [ref=e260]: Your forecast is encrypted with FHE before being submitted on-chain
+        - generic [ref=e262]:
+          - generic [ref=e263]: "4"
+          - img [ref=e266]
+          - heading "Win Rewards" [level=3] [ref=e272]
+          - paragraph [ref=e273]: Official weather data verifies predictions and distributes rewards
+      - generic [ref=e275]:
+        - img [ref=e276]
+        - generic [ref=e279]:
+          - heading "Privacy-First Design" [level=4] [ref=e280]
+          - paragraph [ref=e281]: WeatherWager uses Fully Homomorphic Encryption (FHE) to ensure your predictions remain completely private until the forecast period ends. No one—not even the contract operators—can see your bet before settlement.
+```

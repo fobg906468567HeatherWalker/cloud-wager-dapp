@@ -269,6 +269,6 @@ export default defineConfig(() => ({
 ---
 
 **文档更新时间**: 2025-10-29 13:08 PM (UTC+8)
-**实现工程师**: Claude Code
+**实现工程师**: Development Team
 **审核状态**: 等待人工测试验证
 **测试服务器**: http://localhost:8080

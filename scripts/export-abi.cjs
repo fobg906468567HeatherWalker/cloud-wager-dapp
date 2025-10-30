@@ -10,8 +10,8 @@ const path = require('path');
 async function main() {
   console.log("📦 Exporting WeatherWager ABI...\n");
 
-  // Read compiled artifact
-  const artifactPath = path.join(__dirname, '../artifacts/contracts/WeatherWagerBook.sol/WeatherWagerBook.json');
+  // Read compiled artifact (using WeatherWagerMock for local testing)
+  const artifactPath = path.join(__dirname, '../artifacts/contracts/WeatherWagerMock.sol/WeatherWagerMock.json');
 
   if (!fs.existsSync(artifactPath)) {
     console.error("❌ Contract not compiled. Run: npx hardhat compile");

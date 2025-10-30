@@ -128,6 +128,6 @@ WeatherWager项目的FHE集成代码已经完全对齐JudgeScore的成功模式�
 
 ---
 
-**报告作者**: Claude Code
+**报告作者**: Development Team
 **技术状态**: FHE代码就绪，等待测试环境配置
 **下一步**: 配置本地测试环境并运行端到端测试

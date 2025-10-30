@@ -23,34 +23,12 @@ import type {
   TypedContractMethod,
 } from "../common";
 
-export declare namespace WeatherWagerBook {
-  export type DecryptionJobStruct = {
-    cityId: BigNumberish;
-    fulfilled: boolean;
-    payoutRatio: BigNumberish;
-    poolScaled: BigNumberish;
-    winningScaled: BigNumberish;
-  };
-
-  export type DecryptionJobStructOutput = [
-    cityId: bigint,
-    fulfilled: boolean,
-    payoutRatio: bigint,
-    poolScaled: bigint,
-    winningScaled: bigint
-  ] & {
-    cityId: bigint;
-    fulfilled: boolean;
-    payoutRatio: bigint;
-    poolScaled: bigint;
-    winningScaled: bigint;
-  };
-
+export declare namespace WeatherWagerMock {
   export type ForecastTicketStruct = {
     cityId: BigNumberish;
     bettor: AddressLike;
-    encryptedCondition: BytesLike;
-    encryptedStake: BytesLike;
+    condition: BigNumberish;
+    stake: BigNumberish;
     commitment: BytesLike;
     claimed: boolean;
   };
@@ -58,37 +36,31 @@ export declare namespace WeatherWagerBook {
   export type ForecastTicketStructOutput = [
     cityId: bigint,
     bettor: string,
-    encryptedCondition: string,
-    encryptedStake: string,
+    condition: bigint,
+    stake: bigint,
     commitment: string,
     claimed: boolean
   ] & {
     cityId: bigint;
     bettor: string;
-    encryptedCondition: string;
-    encryptedStake: string;
+    condition: bigint;
+    stake: bigint;
     commitment: string;
     claimed: boolean;
   };
 }
 
-export interface WeatherWagerBookInterface extends Interface {
+export interface WeatherWagerMockInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "DEFAULT_ADMIN_ROLE"
-      | "GATEWAY_ROLE"
       | "MARKET_ROLE"
       | "MAX_CONDITIONS"
       | "ORACLE_ROLE"
-      | "SCALE"
       | "cityTickets"
       | "commitmentUsed"
       | "createCityMarket"
-      | "decryptionJobs"
-      | "gatewayCallback"
       | "getCityMarket"
-      | "getClaimAmount"
-      | "getDecryptionJob"
       | "getRoleAdmin"
       | "getTicket"
       | "getTicketsForCity"
@@ -99,7 +71,6 @@ export interface WeatherWagerBookInterface extends Interface {
       | "protocolId"
       | "renounceRole"
       | "requestClaim"
-      | "requestCount"
       | "revokeRole"
       | "settleCity"
       | "supportsInterface"
@@ -111,7 +82,6 @@ export interface WeatherWagerBookInterface extends Interface {
     nameOrSignatureOrTopic:
       | "CityMarketCreated"
       | "CitySettled"
-      | "DecryptionFulfilled"
       | "ForecastPaid"
       | "ForecastPlaced"
       | "RoleAdminChanged"
@@ -121,10 +91,6 @@ export interface WeatherWagerBookInterface extends Interface {
 
   encodeFunctionData(
     functionFragment: "DEFAULT_ADMIN_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "GATEWAY_ROLE",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -139,7 +105,6 @@ export interface WeatherWagerBookInterface extends Interface {
     functionFragment: "ORACLE_ROLE",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "SCALE", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "cityTickets",
     values: [BigNumberish, BigNumberish]
@@ -153,23 +118,7 @@ export interface WeatherWagerBookInterface extends Interface {
     values: [BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "decryptionJobs",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "gatewayCallback",
-    values: [BigNumberish, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "getCityMarket",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getClaimAmount",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getDecryptionJob",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -213,10 +162,6 @@ export interface WeatherWagerBookInterface extends Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "requestCount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "revokeRole",
     values: [BytesLike, AddressLike]
   ): string;
@@ -242,10 +187,6 @@ export interface WeatherWagerBookInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "GATEWAY_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "MARKET_ROLE",
     data: BytesLike
   ): Result;
@@ -257,7 +198,6 @@ export interface WeatherWagerBookInterface extends Interface {
     functionFragment: "ORACLE_ROLE",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "SCALE", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "cityTickets",
     data: BytesLike
@@ -271,23 +211,7 @@ export interface WeatherWagerBookInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "decryptionJobs",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "gatewayCallback",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "getCityMarket",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getClaimAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getDecryptionJob",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -313,10 +237,6 @@ export interface WeatherWagerBookInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "requestClaim",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "requestCount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
@@ -349,38 +269,16 @@ export namespace CitySettledEvent {
   export type InputTuple = [
     cityId: BigNumberish,
     winningCondition: BigNumberish,
-    requestId: BigNumberish
+    payoutRatio: BigNumberish
   ];
   export type OutputTuple = [
     cityId: bigint,
     winningCondition: bigint,
-    requestId: bigint
+    payoutRatio: bigint
   ];
   export interface OutputObject {
     cityId: bigint;
     winningCondition: bigint;
-    requestId: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace DecryptionFulfilledEvent {
-  export type InputTuple = [
-    requestId: BigNumberish,
-    cityId: BigNumberish,
-    payoutRatio: BigNumberish
-  ];
-  export type OutputTuple = [
-    requestId: bigint,
-    cityId: bigint,
-    payoutRatio: bigint
-  ];
-  export interface OutputObject {
-    requestId: bigint;
-    cityId: bigint;
     payoutRatio: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
@@ -487,11 +385,11 @@ export namespace RoleRevokedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface WeatherWagerBook extends BaseContract {
-  connect(runner?: ContractRunner | null): WeatherWagerBook;
+export interface WeatherWagerMock extends BaseContract {
+  connect(runner?: ContractRunner | null): WeatherWagerMock;
   waitForDeployment(): Promise<this>;
 
-  interface: WeatherWagerBookInterface;
+  interface: WeatherWagerMockInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -532,15 +430,11 @@ export interface WeatherWagerBook extends BaseContract {
 
   DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], "view">;
 
-  GATEWAY_ROLE: TypedContractMethod<[], [string], "view">;
-
   MARKET_ROLE: TypedContractMethod<[], [string], "view">;
 
   MAX_CONDITIONS: TypedContractMethod<[], [bigint], "view">;
 
   ORACLE_ROLE: TypedContractMethod<[], [string], "view">;
-
-  SCALE: TypedContractMethod<[], [bigint], "view">;
 
   cityTickets: TypedContractMethod<
     [arg0: BigNumberish, arg1: BigNumberish],
@@ -555,30 +449,6 @@ export interface WeatherWagerBook extends BaseContract {
       cityId: BigNumberish,
       conditionCount: BigNumberish,
       lockTimestamp: BigNumberish
-    ],
-    [void],
-    "nonpayable"
-  >;
-
-  decryptionJobs: TypedContractMethod<
-    [arg0: BigNumberish],
-    [
-      [bigint, boolean, bigint, bigint, bigint] & {
-        cityId: bigint;
-        fulfilled: boolean;
-        payoutRatio: bigint;
-        poolScaled: bigint;
-        winningScaled: bigint;
-      }
-    ],
-    "view"
-  >;
-
-  gatewayCallback: TypedContractMethod<
-    [
-      requestId: BigNumberish,
-      poolScaled: BigNumberish,
-      winningScaled: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -614,23 +484,11 @@ export interface WeatherWagerBook extends BaseContract {
     "view"
   >;
 
-  getClaimAmount: TypedContractMethod<
-    [ticketId: BigNumberish],
-    [string],
-    "nonpayable"
-  >;
-
-  getDecryptionJob: TypedContractMethod<
-    [requestId: BigNumberish],
-    [WeatherWagerBook.DecryptionJobStructOutput],
-    "view"
-  >;
-
   getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], "view">;
 
   getTicket: TypedContractMethod<
     [ticketId: BigNumberish],
-    [WeatherWagerBook.ForecastTicketStructOutput],
+    [WeatherWagerMock.ForecastTicketStructOutput],
     "view"
   >;
 
@@ -662,8 +520,6 @@ export interface WeatherWagerBook extends BaseContract {
         boolean,
         bigint,
         bigint,
-        string,
-        bigint,
         bigint,
         bigint,
         bigint
@@ -674,9 +530,7 @@ export interface WeatherWagerBook extends BaseContract {
         settled: boolean;
         winningCondition: bigint;
         payoutRatio: bigint;
-        encryptedPool: string;
-        gatewayRequestId: bigint;
-        winningTotalScaled: bigint;
+        totalPool: bigint;
         totalDepositedWei: bigint;
         totalPaidWei: bigint;
       }
@@ -687,9 +541,9 @@ export interface WeatherWagerBook extends BaseContract {
   placeForecast: TypedContractMethod<
     [
       cityId: BigNumberish,
-      encryptedCondition: BytesLike,
-      encryptedStake: BytesLike,
-      attestation: BytesLike,
+      arg1: BytesLike,
+      arg2: BytesLike,
+      arg3: BytesLike,
       commitment: BytesLike
     ],
     [bigint],
@@ -709,8 +563,6 @@ export interface WeatherWagerBook extends BaseContract {
     [bigint],
     "nonpayable"
   >;
-
-  requestCount: TypedContractMethod<[], [bigint], "view">;
 
   revokeRole: TypedContractMethod<
     [role: BytesLike, account: AddressLike],
@@ -735,11 +587,11 @@ export interface WeatherWagerBook extends BaseContract {
   tickets: TypedContractMethod<
     [arg0: BigNumberish],
     [
-      [bigint, string, string, string, string, boolean] & {
+      [bigint, string, bigint, bigint, string, boolean] & {
         cityId: bigint;
         bettor: string;
-        encryptedCondition: string;
-        encryptedStake: string;
+        condition: bigint;
+        stake: bigint;
         commitment: string;
         claimed: boolean;
       }
@@ -755,9 +607,6 @@ export interface WeatherWagerBook extends BaseContract {
     nameOrSignature: "DEFAULT_ADMIN_ROLE"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "GATEWAY_ROLE"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
     nameOrSignature: "MARKET_ROLE"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
@@ -766,9 +615,6 @@ export interface WeatherWagerBook extends BaseContract {
   getFunction(
     nameOrSignature: "ORACLE_ROLE"
   ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "SCALE"
-  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "cityTickets"
   ): TypedContractMethod<
@@ -786,32 +632,6 @@ export interface WeatherWagerBook extends BaseContract {
       cityId: BigNumberish,
       conditionCount: BigNumberish,
       lockTimestamp: BigNumberish
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "decryptionJobs"
-  ): TypedContractMethod<
-    [arg0: BigNumberish],
-    [
-      [bigint, boolean, bigint, bigint, bigint] & {
-        cityId: bigint;
-        fulfilled: boolean;
-        payoutRatio: bigint;
-        poolScaled: bigint;
-        winningScaled: bigint;
-      }
-    ],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "gatewayCallback"
-  ): TypedContractMethod<
-    [
-      requestId: BigNumberish,
-      poolScaled: BigNumberish,
-      winningScaled: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -848,23 +668,13 @@ export interface WeatherWagerBook extends BaseContract {
     "view"
   >;
   getFunction(
-    nameOrSignature: "getClaimAmount"
-  ): TypedContractMethod<[ticketId: BigNumberish], [string], "nonpayable">;
-  getFunction(
-    nameOrSignature: "getDecryptionJob"
-  ): TypedContractMethod<
-    [requestId: BigNumberish],
-    [WeatherWagerBook.DecryptionJobStructOutput],
-    "view"
-  >;
-  getFunction(
     nameOrSignature: "getRoleAdmin"
   ): TypedContractMethod<[role: BytesLike], [string], "view">;
   getFunction(
     nameOrSignature: "getTicket"
   ): TypedContractMethod<
     [ticketId: BigNumberish],
-    [WeatherWagerBook.ForecastTicketStructOutput],
+    [WeatherWagerMock.ForecastTicketStructOutput],
     "view"
   >;
   getFunction(
@@ -896,8 +706,6 @@ export interface WeatherWagerBook extends BaseContract {
         boolean,
         bigint,
         bigint,
-        string,
-        bigint,
         bigint,
         bigint,
         bigint
@@ -908,9 +716,7 @@ export interface WeatherWagerBook extends BaseContract {
         settled: boolean;
         winningCondition: bigint;
         payoutRatio: bigint;
-        encryptedPool: string;
-        gatewayRequestId: bigint;
-        winningTotalScaled: bigint;
+        totalPool: bigint;
         totalDepositedWei: bigint;
         totalPaidWei: bigint;
       }
@@ -922,9 +728,9 @@ export interface WeatherWagerBook extends BaseContract {
   ): TypedContractMethod<
     [
       cityId: BigNumberish,
-      encryptedCondition: BytesLike,
-      encryptedStake: BytesLike,
-      attestation: BytesLike,
+      arg1: BytesLike,
+      arg2: BytesLike,
+      arg3: BytesLike,
       commitment: BytesLike
     ],
     [bigint],
@@ -943,9 +749,6 @@ export interface WeatherWagerBook extends BaseContract {
   getFunction(
     nameOrSignature: "requestClaim"
   ): TypedContractMethod<[ticketId: BigNumberish], [bigint], "nonpayable">;
-  getFunction(
-    nameOrSignature: "requestCount"
-  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "revokeRole"
   ): TypedContractMethod<
@@ -971,11 +774,11 @@ export interface WeatherWagerBook extends BaseContract {
   ): TypedContractMethod<
     [arg0: BigNumberish],
     [
-      [bigint, string, string, string, string, boolean] & {
+      [bigint, string, bigint, bigint, string, boolean] & {
         cityId: bigint;
         bettor: string;
-        encryptedCondition: string;
-        encryptedStake: string;
+        condition: bigint;
+        stake: bigint;
         commitment: string;
         claimed: boolean;
       }
@@ -996,13 +799,6 @@ export interface WeatherWagerBook extends BaseContract {
     CitySettledEvent.InputTuple,
     CitySettledEvent.OutputTuple,
     CitySettledEvent.OutputObject
-  >;
-  getEvent(
-    key: "DecryptionFulfilled"
-  ): TypedContractEvent<
-    DecryptionFulfilledEvent.InputTuple,
-    DecryptionFulfilledEvent.OutputTuple,
-    DecryptionFulfilledEvent.OutputObject
   >;
   getEvent(
     key: "ForecastPaid"
@@ -1052,7 +848,7 @@ export interface WeatherWagerBook extends BaseContract {
       CityMarketCreatedEvent.OutputObject
     >;
 
-    "CitySettled(uint256,uint8,uint256)": TypedContractEvent<
+    "CitySettled(uint256,uint8,uint64)": TypedContractEvent<
       CitySettledEvent.InputTuple,
       CitySettledEvent.OutputTuple,
       CitySettledEvent.OutputObject
@@ -1061,17 +857,6 @@ export interface WeatherWagerBook extends BaseContract {
       CitySettledEvent.InputTuple,
       CitySettledEvent.OutputTuple,
       CitySettledEvent.OutputObject
-    >;
-
-    "DecryptionFulfilled(uint256,uint256,uint64)": TypedContractEvent<
-      DecryptionFulfilledEvent.InputTuple,
-      DecryptionFulfilledEvent.OutputTuple,
-      DecryptionFulfilledEvent.OutputObject
-    >;
-    DecryptionFulfilled: TypedContractEvent<
-      DecryptionFulfilledEvent.InputTuple,
-      DecryptionFulfilledEvent.OutputTuple,
-      DecryptionFulfilledEvent.OutputObject
     >;
 
     "ForecastPaid(uint256,address,uint256)": TypedContractEvent<

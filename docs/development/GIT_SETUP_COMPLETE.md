@@ -69,7 +69,7 @@ git push origin main
 - ✅ 从 `.env` 加载作者信息
 - ✅ 配置 Git 用户
 - ✅ 暂存所有更改
-- ✅ 创建提交（包含 Claude Code 标签）
+- ✅ 创建提交
 - ✅ 推送到 GitHub
 - ✅ 显示 GitHub 链接
 

@@ -336,18 +336,27 @@ export function usePlaceForecast(cityId?: number) {
 
       // Encrypt forecast data using FHE
       // This ensures privacy of predictions until settlement
-      const { conditionHandle, stakeHandle, proof } = await encryptForecastPayload(
+      const { conditionHandle, stakeHandle, attestation } = await encryptForecastPayload(
         checksumContract,
         checksumAddress,
         conditionToIndex(condition),
         stakeWei,
       );
 
+      console.log('[Forecast] Encrypted data ready:', {
+        conditionType: typeof conditionHandle,
+        stakeType: typeof stakeHandle,
+        attestationType: typeof attestation,
+        conditionValue: conditionHandle.substring(0, 10) + '...',
+        stakeValue: stakeHandle.substring(0, 10) + '...',
+        attestationLength: attestation.length,
+      });
+
       // Generate commitment hash
       // This prevents replay attacks by ensuring each forecast is unique
       const commitment = keccak256(
         encodePacked(
-          ["address", "uint256", "bytes32", "bytes32"],
+          ["address", "uint256", "bytes", "bytes"],
           [checksumAddress, BigInt(targetCity), conditionHandle, stakeHandle],
         ),
       );
@@ -359,8 +368,9 @@ export function usePlaceForecast(cityId?: number) {
         address: checksumContract,
         abi: weatherWagerAbi,
         functionName: "placeForecast",
-        args: [BigInt(targetCity), conditionHandle, stakeHandle, proof, commitment],
+        args: [BigInt(targetCity), conditionHandle, stakeHandle, attestation, commitment],
         value: stakeWei,  // Send ETH with transaction
+        gas: 5_000_000n,  // Set reasonable gas limit for FHE operations (Sepolia cap: 16777216)
       });
 
       console.log('[Forecast] Transaction submitted:', hash);

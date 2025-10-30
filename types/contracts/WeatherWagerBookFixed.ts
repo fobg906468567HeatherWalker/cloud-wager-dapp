@@ -23,7 +23,7 @@ import type {
   TypedContractMethod,
 } from "../common";
 
-export declare namespace WeatherWagerBook {
+export declare namespace WeatherWagerBookFixed {
   export type DecryptionJobStruct = {
     cityId: BigNumberish;
     fulfilled: boolean;
@@ -72,7 +72,7 @@ export declare namespace WeatherWagerBook {
   };
 }
 
-export interface WeatherWagerBookInterface extends Interface {
+export interface WeatherWagerBookFixedInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "DEFAULT_ADMIN_ROLE"
@@ -487,11 +487,11 @@ export namespace RoleRevokedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface WeatherWagerBook extends BaseContract {
-  connect(runner?: ContractRunner | null): WeatherWagerBook;
+export interface WeatherWagerBookFixed extends BaseContract {
+  connect(runner?: ContractRunner | null): WeatherWagerBookFixed;
   waitForDeployment(): Promise<this>;
 
-  interface: WeatherWagerBookInterface;
+  interface: WeatherWagerBookFixedInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -622,7 +622,7 @@ export interface WeatherWagerBook extends BaseContract {
 
   getDecryptionJob: TypedContractMethod<
     [requestId: BigNumberish],
-    [WeatherWagerBook.DecryptionJobStructOutput],
+    [WeatherWagerBookFixed.DecryptionJobStructOutput],
     "view"
   >;
 
@@ -630,7 +630,7 @@ export interface WeatherWagerBook extends BaseContract {
 
   getTicket: TypedContractMethod<
     [ticketId: BigNumberish],
-    [WeatherWagerBook.ForecastTicketStructOutput],
+    [WeatherWagerBookFixed.ForecastTicketStructOutput],
     "view"
   >;
 
@@ -854,7 +854,7 @@ export interface WeatherWagerBook extends BaseContract {
     nameOrSignature: "getDecryptionJob"
   ): TypedContractMethod<
     [requestId: BigNumberish],
-    [WeatherWagerBook.DecryptionJobStructOutput],
+    [WeatherWagerBookFixed.DecryptionJobStructOutput],
     "view"
   >;
   getFunction(
@@ -864,7 +864,7 @@ export interface WeatherWagerBook extends BaseContract {
     nameOrSignature: "getTicket"
   ): TypedContractMethod<
     [ticketId: BigNumberish],
-    [WeatherWagerBook.ForecastTicketStructOutput],
+    [WeatherWagerBookFixed.ForecastTicketStructOutput],
     "view"
   >;
   getFunction(

@@ -5,11 +5,6 @@ export const weatherWagerAbi = [
         "internalType": "address",
         "name": "admin",
         "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "gateway",
-        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -72,37 +67,12 @@ export const weatherWagerAbi = [
       },
       {
         "indexed": false,
-        "internalType": "uint256",
-        "name": "requestId",
-        "type": "uint256"
-      }
-    ],
-    "name": "CitySettled",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "requestId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "cityId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
         "internalType": "uint64",
         "name": "payoutRatio",
         "type": "uint64"
       }
     ],
-    "name": "DecryptionFulfilled",
+    "name": "CitySettled",
     "type": "event"
   },
   {
@@ -245,19 +215,6 @@ export const weatherWagerAbi = [
   },
   {
     "inputs": [],
-    "name": "GATEWAY_ROLE",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "MARKET_ROLE",
     "outputs": [
       {
@@ -296,19 +253,6 @@ export const weatherWagerAbi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "SCALE",
-    "outputs": [
-      {
-        "internalType": "uint64",
-        "name": "",
-        "type": "uint64"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -330,29 +274,6 @@ export const weatherWagerAbi = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "ticketId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "proofCondition",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes",
-        "name": "proofStake",
-        "type": "bytes"
-      }
-    ],
-    "name": "claim",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -393,68 +314,6 @@ export const weatherWagerAbi = [
       }
     ],
     "name": "createCityMarket",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "decryptionJobs",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "cityId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "fulfilled",
-        "type": "bool"
-      },
-      {
-        "internalType": "uint64",
-        "name": "payoutRatio",
-        "type": "uint64"
-      },
-      {
-        "internalType": "uint64",
-        "name": "poolScaled",
-        "type": "uint64"
-      },
-      {
-        "internalType": "uint64",
-        "name": "winningScaled",
-        "type": "uint64"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "requestId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint64",
-        "name": "poolScaled",
-        "type": "uint64"
-      },
-      {
-        "internalType": "uint64",
-        "name": "winningScaled",
-        "type": "uint64"
-      }
-    ],
-    "name": "gatewayCallback",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -526,52 +385,6 @@ export const weatherWagerAbi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "requestId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getDecryptionJob",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "cityId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "fulfilled",
-            "type": "bool"
-          },
-          {
-            "internalType": "uint64",
-            "name": "payoutRatio",
-            "type": "uint64"
-          },
-          {
-            "internalType": "uint64",
-            "name": "poolScaled",
-            "type": "uint64"
-          },
-          {
-            "internalType": "uint64",
-            "name": "winningScaled",
-            "type": "uint64"
-          }
-        ],
-        "internalType": "struct WeatherWagerBook.DecryptionJob",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "bytes32",
         "name": "role",
         "type": "bytes32"
@@ -611,14 +424,14 @@ export const weatherWagerAbi = [
             "type": "address"
           },
           {
-            "internalType": "bytes32",
-            "name": "encryptedCondition",
-            "type": "bytes32"
+            "internalType": "uint8",
+            "name": "condition",
+            "type": "uint8"
           },
           {
-            "internalType": "bytes32",
-            "name": "encryptedStake",
-            "type": "bytes32"
+            "internalType": "uint256",
+            "name": "stake",
+            "type": "uint256"
           },
           {
             "internalType": "bytes32",
@@ -631,7 +444,7 @@ export const weatherWagerAbi = [
             "type": "bool"
           }
         ],
-        "internalType": "struct WeatherWagerBook.ForecastTicket",
+        "internalType": "struct WeatherWagerMock.ForecastTicket",
         "name": "",
         "type": "tuple"
       }
@@ -741,19 +554,9 @@ export const weatherWagerAbi = [
         "type": "uint64"
       },
       {
-        "internalType": "euint64",
-        "name": "encryptedPool",
-        "type": "bytes32"
-      },
-      {
         "internalType": "uint256",
-        "name": "gatewayRequestId",
+        "name": "totalPool",
         "type": "uint256"
-      },
-      {
-        "internalType": "uint64",
-        "name": "winningTotalScaled",
-        "type": "uint64"
       },
       {
         "internalType": "uint256",
@@ -777,18 +580,18 @@ export const weatherWagerAbi = [
         "type": "uint256"
       },
       {
-        "internalType": "bytes32",
-        "name": "encryptedCondition",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "encryptedStake",
-        "type": "bytes32"
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
       },
       {
         "internalType": "bytes",
-        "name": "proof",
+        "name": "",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes",
+        "name": "",
         "type": "bytes"
       },
       {
@@ -840,8 +643,14 @@ export const weatherWagerAbi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "requestCount",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "ticketId",
+        "type": "uint256"
+      }
+    ],
+    "name": "requestClaim",
     "outputs": [
       {
         "internalType": "uint256",
@@ -849,7 +658,7 @@ export const weatherWagerAbi = [
         "type": "uint256"
       }
     ],
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -941,14 +750,14 @@ export const weatherWagerAbi = [
         "type": "address"
       },
       {
-        "internalType": "bytes32",
-        "name": "encryptedCondition",
-        "type": "bytes32"
+        "internalType": "uint8",
+        "name": "condition",
+        "type": "uint8"
       },
       {
-        "internalType": "bytes32",
-        "name": "encryptedStake",
-        "type": "bytes32"
+        "internalType": "uint256",
+        "name": "stake",
+        "type": "uint256"
       },
       {
         "internalType": "bytes32",

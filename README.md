@@ -1,6 +1,8 @@
 # WeatherWager ☀️🌧️❄️☁️
 
-A privacy-preserving weather prediction market built with Fully Homomorphic Encryption (FHE) on Ethereum Sepolia testnet.
+A privacy-preserving weather prediction market built with Fully Homomorphic Encryption (FHE) on Ethereum.
+
+🚀 **[Live Demo on Vercel](https://weather-wager-dapp.vercel.app)** | 📺 [Video Demo](#) | 📖 [Documentation](#-documentation)
 
 ## 🎯 Overview
 
@@ -16,9 +18,10 @@ WeatherWager allows users to place encrypted bets on future weather conditions. 
 
 ## 🏗️ Architecture
 
-### Smart Contract (Solidity)
+### Smart Contracts (Solidity)
 
-- **WeatherWagerBook.sol**: Main contract managing markets, bets, and settlements
+- **WeatherWagerBookFixed.sol**: Production contract with SDK-compatible FHE configuration
+- **WeatherWagerMock.sol**: Local testing contract without FHE (for development)
 - Uses `@fhevm/solidity` for FHE operations
 - Role-based access control for market management
 - Gateway integration for decryption
@@ -27,15 +30,15 @@ WeatherWager allows users to place encrypted bets on future weather conditions. 
 
 - **Vite**: Build tool with optimized dev experience
 - **React 18**: Modern React with hooks
-- **Wagmi v2**: Ethereum interactions
-- **RainbowKit**: Wallet connection UI
+- **Wagmi v2**: Ethereum interactions with Sepolia and Hardhat network support
+- **RainbowKit**: Wallet connection UI (MetaMask, Rainbow, WalletConnect)
 - **shadcn/ui**: Beautiful UI components
 - **TailwindCSS**: Utility-first styling
 
 ### FHE Integration
 
 - **SDK**: `@zama-fhe/relayer-sdk@0.2.0` via CDN
-- **Network**: Sepolia testnet
+- **Networks**: Sepolia testnet (production) & Hardhat local (development)
 - **Gateway**: Zama FHE Gateway for decryption
 - **Types**: euint8 for conditions, euint64 for stakes
 
@@ -44,11 +47,16 @@ WeatherWager allows users to place encrypted bets on future weather conditions. 
 - Node.js >= 18.x
 - npm or yarn
 - MetaMask or compatible Web3 wallet
-- Sepolia ETH (get from [Sepolia Faucet](https://sepoliafaucet.com/))
+- Sepolia ETH (get from [Sepolia Faucet](https://sepoliafaucet.com/)) for testnet deployment
+- OR Local Hardhat network for development
 
 ## 🚀 Quick Start
 
-### 1. Clone and Install
+### Option 1: Local Development Environment (Recommended for Testing)
+
+Perfect for rapid development and testing without needing Sepolia ETH.
+
+1. **Clone and Install**
 
 ```bash
 git clone <repository-url>
@@ -56,179 +64,179 @@ cd projects/06_WeatherWager
 npm install
 ```
 
-### 2. Configure Environment
+2. **Start Hardhat Node**
 
 ```bash
-cp .env.example .env
+npx hardhat node
 ```
 
-Edit `.env` with your configuration:
+Keep this terminal running.
 
-```env
-# Required for deployment
-SEPOLIA_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com
-PRIVATE_KEY=your_private_key_without_0x
-
-# Required for contract verification
-ETHERSCAN_API_KEY=your_etherscan_api_key
-
-# Required for frontend (set after deployment)
-VITE_CONTRACT_ADDRESS=
-
-# Optional: Get from https://cloud.walletconnect.com/
-VITE_WALLETCONNECT_PROJECT_ID=
-```
-
-### 3. Compile Contracts
+3. **Deploy Mock Contract (in another terminal)**
 
 ```bash
-npm run hardhat:compile
+npx hardhat run scripts/deploy-mock.cjs --network localhost
 ```
 
-### 4. Deploy to Sepolia
-
-```bash
-npm run deploy:sepolia
-```
-
-This will:
-- Deploy WeatherWagerBook contract
-- Create initial city markets
-- Output contract address
-
-### 5. Export ABI
+4. **Export ABI**
 
 ```bash
 npm run export-abi
 ```
 
-### 6. Update Environment
+5. **Configure MetaMask**
 
-Copy the deployed contract address to `.env`:
+See [Local Testing Guide](docs/testing/LOCAL_TESTING_GUIDE.md) for detailed MetaMask setup.
 
-```env
-VITE_CONTRACT_ADDRESS=0x... # your deployed address
-```
-
-### 7. Start Frontend
+6. **Start Frontend**
 
 ```bash
 npm run dev
 ```
 
-Visit http://localhost:8080
+Visit http://localhost:8081
+
+**📖 Full Instructions**: See [docs/testing/LOCAL_TESTING_GUIDE.md](docs/testing/LOCAL_TESTING_GUIDE.md)
+
+### Option 2: Sepolia Testnet Deployment
+
+For production-like testing with real FHE encryption.
+
+1. **Configure Environment**
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env`:
+
+```env
+SEPOLIA_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com
+PRIVATE_KEY=your_private_key_without_0x
+VITE_CONTRACT_ADDRESS=  # Set after deployment
+```
+
+2. **Compile Contracts**
+
+```bash
+npx hardhat compile
+```
+
+3. **Deploy to Sepolia**
+
+```bash
+npx hardhat run scripts/deploy-sepolia.cjs --network sepolia
+```
+
+4. **Update Environment & Export ABI**
+
+Copy the deployed contract address to `.env` as `VITE_CONTRACT_ADDRESS`, then:
+
+```bash
+npm run export-abi
+npm run dev
+```
+
+**📖 Full Instructions**: See [QUICK_START.md](QUICK_START.md)
 
 ## 📁 Project Structure
 
 ```
 06_WeatherWager/
 ├── contracts/
-│   └── WeatherWagerBook.sol    # Main smart contract
+│   ├── WeatherWagerBookFixed.sol  # Production contract (FHE)
+│   └── WeatherWagerMock.sol       # Local testing contract (no FHE)
 ├── scripts/
-│   ├── deploy-sepolia.cjs      # Deployment script
-│   └── export-abi.cjs          # ABI export script
+│   ├── deploy-sepolia.cjs         # Sepolia deployment
+│   ├── deploy-local.cjs           # Local FHE deployment
+│   ├── deploy-mock.cjs            # Local mock deployment
+│   ├── export-abi.cjs             # ABI export
+│   └── git-commit.sh              # Git commit helper
 ├── src/
 │   ├── components/
-│   │   ├── landing/            # Landing page components
-│   │   │   ├── HeroCloud.tsx
-│   │   │   ├── CityShowcase.tsx
-│   │   │   └── HowItWorks.tsx
-│   │   ├── weather/            # Weather DApp components
-│   │   │   ├── CitySelector.tsx
-│   │   │   └── WeatherTypeSelector.tsx
-│   │   └── ui/                 # shadcn/ui components
+│   │   ├── landing/               # Landing page components
+│   │   ├── weather/               # Weather DApp components
+│   │   └── ui/                    # shadcn/ui components
 │   ├── hooks/
-│   │   └── useForecastContract.ts  # Contract interaction hooks
+│   │   └── useForecastContract.ts # Contract interaction hooks
 │   ├── lib/
-│   │   ├── abi/
-│   │   │   └── weatherWager.ts # Contract ABI
-│   │   ├── config.ts           # App configuration
-│   │   ├── fhe.ts              # FHE SDK initialization
-│   │   ├── wagmi.ts            # Wagmi configuration
-│   │   ├── viem.ts             # Viem clients
-│   │   └── weather.ts          # Weather utilities
+│   │   ├── abi/                   # Contract ABIs
+│   │   ├── config.ts              # App configuration
+│   │   ├── fhe.ts                 # FHE SDK initialization
+│   │   ├── wagmi.ts               # Wagmi configuration
+│   │   └── viem.ts                # Viem clients
 │   ├── pages/
-│   │   ├── Index.tsx           # Landing page
-│   │   ├── WeatherDApp.tsx     # Main DApp
-│   │   └── WeatherHistory.tsx  # Bet history
-│   ├── types/
-│   │   └── weather.ts          # TypeScript types
-│   └── App.tsx                 # Root component
-├── hardhat.config.cjs          # Hardhat configuration
-├── vite.config.ts              # Vite configuration
-└── package.json                # Dependencies and scripts
+│   │   ├── Index.tsx              # Landing page
+│   │   ├── WeatherDApp.tsx        # Main DApp
+│   │   └── WeatherHistory.tsx     # Bet history
+│   └── App.tsx                    # Root component
+├── docs/
+│   ├── deployment/                # Deployment documentation
+│   ├── testing/                   # Testing guides
+│   └── development/               # Development notes
+├── test/                          # Contract tests
+├── e2e/                           # E2E tests
+├── hardhat.config.cjs             # Hardhat configuration
+├── vite.config.ts                 # Vite configuration
+└── package.json                   # Dependencies and scripts
 ```
 
 ## 🔧 Development
 
-### Compile Contracts
+### Available Scripts
 
 ```bash
-npm run hardhat:compile
+# Hardhat Commands
+npm run hardhat:compile    # Compile contracts
+npm run hardhat:clean      # Clean build artifacts
+npm run hardhat:test       # Run contract tests
+
+# Deployment
+npm run deploy:sepolia     # Deploy to Sepolia
+npm run export-abi         # Export contract ABI
+
+# Frontend
+npm run dev                # Start dev server
+npm run build              # Build for production
+npm run preview            # Preview production build
+
+# Testing
+npm run test               # Run unit tests
+npm run test:e2e           # Run E2E tests
 ```
 
-### Clean Build Artifacts
+### Contract Development
 
-```bash
-npm run hardhat:clean
-```
+The project includes two contract versions:
 
-### Run Tests
+1. **WeatherWagerBookFixed.sol**: Production contract
+   - Real FHE encryption
+   - SDK-compatible configuration
+   - For Sepolia deployment
 
-```bash
-npm run hardhat:test
-```
-
-### Verify Contract on Etherscan
-
-```bash
-npm run verify:sepolia -- <CONTRACT_ADDRESS> "<ADMIN_ADDRESS>" "<GATEWAY_ADDRESS>"
-```
-
-### Start Development Server
-
-```bash
-npm run dev
-```
-
-### Build for Production
-
-```bash
-npm run build
-```
+2. **WeatherWagerMock.sol**: Testing contract
+   - No FHE operations
+   - Fast local testing
+   - For development iteration
 
 ## 🎮 Usage
 
 ### For Users
 
-1. **Connect Wallet**: Click "Connect Wallet" and select your wallet
-2. **Select City**: Choose a city to bet on
-3. **Choose Weather**: Select predicted weather condition (Sunny/Rainy/Snowy/Cloudy)
-4. **Enter Stake**: Input bet amount in ETH (0.001 - 1.0 ETH)
-5. **Place Bet**: Confirm transaction to submit encrypted prediction
-6. **Wait for Settlement**: Oracle will settle market after lock time
-7. **Claim Winnings**: If you win, claim your payout
+1. **Connect Wallet**: Click "Connect Wallet" and select MetaMask
+2. **Select Network**:
+   - Sepolia (for real FHE testing)
+   - Localhost 8545 (for local development)
+3. **Select City**: Choose a city to bet on
+4. **Choose Weather**: Select predicted weather condition
+5. **Enter Stake**: Input bet amount in ETH
+6. **Place Bet**: Confirm transaction to submit encrypted prediction
+7. **Wait for Settlement**: Oracle will settle market after lock time
+8. **Claim Winnings**: If you win, claim your payout
 
 ### For Admins
 
-#### Create City Market
-
-```solidity
-contract.createCityMarket(
-  cityId,        // Unique city identifier
-  4,             // Number of conditions (always 4)
-  lockTimestamp  // Unix timestamp when betting closes
-);
-```
-
-#### Settle Market
-
-```solidity
-contract.settleCity(
-  cityId,           // City to settle
-  winningCondition  // 0=Sunny, 1=Rainy, 2=Snowy, 3=Cloudy
-);
-```
+See [QUICK_START.md](QUICK_START.md#admin-operations) for admin operations.
 
 ## 🔐 Security
 
@@ -248,39 +256,54 @@ contract.settleCity(
 
 ## 📊 Testing
 
-### Manual Testing Checklist
+### Local Testing
 
-- [ ] Connect wallet with MetaMask
-- [ ] Switch to Sepolia network
-- [ ] Create a new city market (admin only)
-- [ ] Place encrypted forecast
-- [ ] Verify transaction on Etherscan
-- [ ] Check encrypted data is not visible
-- [ ] Settle market with oracle (admin only)
-- [ ] Claim winnings (if winner)
+The easiest way to test the full application:
 
-### Automated Testing (TODO)
+```bash
+# Terminal 1: Start Hardhat node
+npx hardhat node
+
+# Terminal 2: Deploy and start frontend
+npx hardhat run scripts/deploy-mock.cjs --network localhost
+npm run export-abi
+npm run dev
+```
+
+See [Local Testing Guide](docs/testing/LOCAL_TESTING_GUIDE.md) for detailed instructions.
+
+### Contract Tests
 
 ```bash
 npm run hardhat:test
 ```
 
+### E2E Tests
+
+```bash
+npm run test:e2e
+```
+
 ## 🌐 Deployment
 
-### Prerequisites
+### Current Deployments
 
-1. **Sepolia ETH**: Get test ETH from [Sepolia Faucet](https://sepoliafaucet.com/)
-2. **Private Key**: Export from MetaMask (Settings > Security & Privacy > Show Private Key)
-3. **Etherscan API**: Get from [Etherscan](https://etherscan.io/apis)
+**🌐 Live DApp**: [https://weather-wager-dapp.vercel.app](https://weather-wager-dapp.vercel.app)
 
-### Deployment Steps
+| Network | Contract | Address | Status |
+|---------|----------|---------|--------|
+| Sepolia | WeatherWagerBookFixed | `0x31364f95486A6D3b7C95728c786483940034b250` | ✅ Deployed |
+| Localhost | WeatherWagerMock | Dynamic | 🔄 Dev Only |
 
-1. Configure `.env` with your keys
-2. Run `npm run deploy:sepolia`
-3. Copy contract address to `.env` as `VITE_CONTRACT_ADDRESS`
-4. Run `npm run export-abi`
-5. Build frontend with `npm run build`
-6. Deploy to Vercel or your hosting provider
+| Platform | Type | URL | Status |
+|----------|------|-----|--------|
+| Vercel | Frontend | [weather-wager-dapp.vercel.app](https://weather-wager-dapp.vercel.app) | ✅ Live |
+
+### Deployment Guides
+
+- **Local Development**: [docs/testing/LOCAL_TESTING_GUIDE.md](docs/testing/LOCAL_TESTING_GUIDE.md)
+- **Sepolia Testnet**: [QUICK_START.md](QUICK_START.md)
+- **Deployment History**: [docs/deployment/](docs/deployment/)
 
 ## 🐛 Troubleshooting
 
@@ -297,24 +320,57 @@ npm run hardhat:test
 **Error**: `Market is locked`
 **Solution**: Wait for lock time to pass before placing bets
 
-**Error**: `Commitment already used`
-**Solution**: Each bet requires a unique commitment hash
+**Error**: `Market not active`
+**Solution**: Check if markets have been created. For local testing, use `deploy-mock.cjs`
 
-### Wallet Issues
+### Network Issues
 
 **Error**: `Wrong network`
-**Solution**: Switch to Sepolia testnet in MetaMask
+**Solution**: Switch to correct network in MetaMask (Sepolia or Localhost 8545)
 
 **Error**: `Insufficient funds`
-**Solution**: Get Sepolia ETH from faucet
+**Solution**:
+- Sepolia: Get test ETH from [Sepolia Faucet](https://sepoliafaucet.com/)
+- Local: Import Hardhat test account (see Local Testing Guide)
 
-## 📚 Resources
+## 📚 Documentation
 
+### Core Documentation
+- [Quick Start Guide](QUICK_START.md)
+- [Local Testing Guide](docs/testing/LOCAL_TESTING_GUIDE.md)
+
+### Additional Documentation
+- [Deployment Notes](docs/deployment/)
+- [Testing Reports](docs/testing/)
+- [Development Notes](docs/development/)
+
+### External Resources
 - [Zama FHE Documentation](https://docs.zama.ai/fhevm)
 - [fhEVM Solidity Docs](https://docs.zama.ai/fhevm/fundamentals)
 - [Wagmi Documentation](https://wagmi.sh/)
 - [RainbowKit Docs](https://www.rainbowkit.com/)
 - [Vite Documentation](https://vitejs.dev/)
+
+## 🚧 Current Status
+
+### ✅ Completed
+- Smart contract development (Fixed & Mock versions)
+- Frontend UI with wallet integration
+- FHE SDK integration
+- Local testing environment
+- Sepolia deployment
+- Documentation
+
+### ⚠️ Known Limitations
+- Sepolia market creation requires special FHE infrastructure
+- Oracle settlement not yet automated
+- Limited to 4 weather conditions per market
+
+### 🔜 Planned Features
+- Automated weather oracle integration
+- Historical weather data analysis
+- Multi-market dashboard
+- Improved mobile experience
 
 ## 📄 License
 
@@ -322,14 +378,18 @@ MIT License - see LICENSE file for details
 
 ## 🤝 Contributing
 
-Contributions welcome! Please read CONTRIBUTING.md first.
+Contributions welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## 🙋 Support
 
-- GitHub Issues: [Report bugs](../../issues)
-- Discord: [Join community](https://discord.gg/zama)
-- Email: support@example.com
+- **Documentation**: Check `docs/` directory
+- **Issues**: [GitHub Issues](../../issues)
+- **Zama Community**: [Discord](https://discord.gg/zama)
 
 ---
 
-Built with ❤️ using Zama FHE technology
+Built with ❤️ using [Zama FHE](https://www.zama.ai/) technology

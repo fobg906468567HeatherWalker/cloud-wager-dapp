@@ -3,15 +3,15 @@ pragma solidity ^0.8.24;
 
 import { AccessControl } from "@openzeppelin/contracts/access/AccessControl.sol";
 import { FHE, euint8, euint64, externalEuint8, externalEuint64, ebool } from "@fhevm/solidity/lib/FHE.sol";
-import { SepoliaConfig } from "@fhevm/solidity/config/ZamaConfig.sol";
+import { CoprocessorConfig } from "@fhevm/solidity/lib/Impl.sol";
 
 /**
- * @title WeatherWagerBook
+ * @title WeatherWagerBook (Fixed Version)
  * @notice Privacy-preserving weather prediction market using FHE
  * @dev All predictions and stakes are encrypted
- * @dev Inherits SepoliaConfig for proper fhEVM infrastructure setup on Sepolia testnet
+ * @dev Uses SDK-compatible CoprocessorAddress for proper attestation verification
  */
-contract WeatherWagerBook is AccessControl, SepoliaConfig {
+contract WeatherWagerBookFixed is AccessControl {
     bytes32 public constant MARKET_ROLE = keccak256("MARKET_ROLE");
     bytes32 public constant ORACLE_ROLE = keccak256("ORACLE_ROLE");
     bytes32 public constant GATEWAY_ROLE = keccak256("GATEWAY_ROLE");
@@ -37,8 +37,8 @@ contract WeatherWagerBook is AccessControl, SepoliaConfig {
     struct ForecastTicket {
         uint256 cityId;
         address bettor;
-        bytes32 encryptedCondition;
-        bytes32 encryptedStake;
+        euint8 encryptedCondition;
+        euint64 encryptedStake;
         bytes32 commitment;
         bool claimed;
     }
@@ -66,6 +66,12 @@ contract WeatherWagerBook is AccessControl, SepoliaConfig {
     event DecryptionFulfilled(uint256 indexed requestId, uint256 indexed cityId, uint64 payoutRatio);
     event ForecastPaid(uint256 indexed ticketId, address indexed bettor, uint256 payoutWei);
 
+    /**
+     * @notice Constructor with SDK-compatible CoprocessorAddress
+     * @param admin The admin address with full control
+     * @param gateway The gateway address for decryption callbacks
+     * @dev CRITICAL: Uses 0xbc91f3daD1A5F19F8390c400196e58073B6a0BC4 to match SDK
+     */
     constructor(address admin, address gateway) {
         require(admin != address(0), "Admin cannot be zero");
         require(gateway != address(0), "Gateway cannot be zero");
@@ -74,6 +80,22 @@ contract WeatherWagerBook is AccessControl, SepoliaConfig {
         _grantRole(MARKET_ROLE, admin);
         _grantRole(ORACLE_ROLE, admin);
         _grantRole(GATEWAY_ROLE, gateway);
+
+        // Set FHE coprocessor with SDK-compatible address
+        // This MUST match @zama-fhe/relayer-sdk@0.2.0's SepoliaConfig
+        FHE.setCoprocessor(
+            CoprocessorConfig({
+                ACLAddress: 0x687820221192C5B662b25367F70076A37bc79b6c,
+                CoprocessorAddress: 0xbc91f3daD1A5F19F8390c400196e58073B6a0BC4,  // SDK's InputVerifier
+                DecryptionOracleAddress: 0xb6E160B1ff80D67Bfe90A85eE06Ce0A2613607D1,
+                KMSVerifierAddress: 0x1364cBBf2cDF5032C47d8226a6f6FBD2AFCDacAC
+            })
+        );
+    }
+
+    function protocolId() public pure returns (uint256) {
+        // Custom protocol ID for SDK-compatible deployment
+        return 10002;
     }
 
     function createCityMarket(
@@ -82,22 +104,19 @@ contract WeatherWagerBook is AccessControl, SepoliaConfig {
         uint256 lockTimestamp
     ) external onlyRole(MARKET_ROLE) {
         require(!markets[cityId].exists, "Market exists");
-        require(conditionCount == MAX_CONDITIONS, "Must have 4 conditions");
-        require(lockTimestamp > block.timestamp, "Lock must be future");
+        require(conditionCount > 0 && conditionCount <= MAX_CONDITIONS, "Invalid condition count");
+        require(lockTimestamp > block.timestamp, "Lock time must be future");
 
-        CityMarket storage market = markets[cityId];
-        market.exists = true;
-        market.conditionCount = conditionCount;
-        market.lockTimestamp = lockTimestamp;
-        market.settled = false;
-        market.winningCondition = 0;
+        CityMarket storage m = markets[cityId];
+        m.exists = true;
+        m.conditionCount = conditionCount;
+        m.lockTimestamp = lockTimestamp;
+        m.settled = false;
+        m.payoutRatio = 0;
+        m.encryptedPool = FHE.asEuint64(0);
 
-        market.encryptedPool = FHE.asEuint64(0);
-        FHE.allowThis(market.encryptedPool);
-
-        for (uint8 i = 0; i < MAX_CONDITIONS; i++) {
-            market.encryptedConditionTotals[i] = FHE.asEuint64(0);
-            FHE.allowThis(market.encryptedConditionTotals[i]);
+        for (uint8 i = 0; i < conditionCount; i++) {
+            m.encryptedConditionTotals[i] = FHE.asEuint64(0);
         }
 
         emit CityMarketCreated(cityId, lockTimestamp);
@@ -105,9 +124,9 @@ contract WeatherWagerBook is AccessControl, SepoliaConfig {
 
     function placeForecast(
         uint256 cityId,
-        bytes32 encryptedCondition,
-        bytes32 encryptedStake,
-        bytes calldata proof,
+        externalEuint8 encryptedCondition,
+        externalEuint64 encryptedStake,
+        bytes calldata attestation,
         bytes32 commitment
     ) external payable returns (uint256 ticketId) {
         CityMarket storage market = markets[cityId];
@@ -119,38 +138,25 @@ contract WeatherWagerBook is AccessControl, SepoliaConfig {
 
         commitmentUsed[commitment] = true;
 
-        euint8 condition = FHE.fromExternal(externalEuint8.wrap(encryptedCondition), proof);
-        euint64 stake = FHE.fromExternal(externalEuint64.wrap(encryptedStake), proof);
+        euint8 condition = FHE.fromExternal(encryptedCondition, attestation);
+        euint64 stake = FHE.fromExternal(encryptedStake, attestation);
 
         FHE.allowThis(condition);
         FHE.allowThis(stake);
 
-        market.encryptedPool = FHE.add(market.encryptedPool, stake);
-        FHE.allowThis(market.encryptedPool);
-
-        for (uint8 i = 0; i < MAX_CONDITIONS; i++) {
-            ebool isThisCondition = FHE.eq(condition, FHE.asEuint8(i));
-            euint64 amountToAdd = FHE.select(isThisCondition, stake, FHE.asEuint64(0));
-            market.encryptedConditionTotals[i] = FHE.add(market.encryptedConditionTotals[i], amountToAdd);
-            FHE.allowThis(market.encryptedConditionTotals[i]);
-        }
-
-        market.totalDepositedWei += msg.value;
-
-        ticketId = ++ticketCount;
+        ticketId = ticketCount++;
         tickets[ticketId] = ForecastTicket({
             cityId: cityId,
             bettor: msg.sender,
-            encryptedCondition: encryptedCondition,
-            encryptedStake: encryptedStake,
+            encryptedCondition: condition,
+            encryptedStake: stake,
             commitment: commitment,
             claimed: false
         });
 
         cityTickets[cityId].push(ticketId);
-
-        FHE.allow(condition, msg.sender);
-        FHE.allow(stake, msg.sender);
+        market.encryptedPool = FHE.add(market.encryptedPool, stake);
+        market.totalDepositedWei += msg.value;
 
         emit ForecastPlaced(cityId, msg.sender, ticketId);
     }
@@ -202,28 +208,32 @@ contract WeatherWagerBook is AccessControl, SepoliaConfig {
         emit DecryptionFulfilled(requestId, job.cityId, payoutRatio);
     }
 
-    function claim(
-        uint256 ticketId,
-        bytes calldata proofCondition,
-        bytes calldata proofStake
-    ) external {
+    function getClaimAmount(uint256 ticketId) external returns (euint64) {
+        ForecastTicket storage ticket = tickets[ticketId];
+        require(ticket.bettor == msg.sender, "Not owner");
+
+        CityMarket storage market = markets[ticket.cityId];
+        require(market.settled, "Not settled");
+
+        ebool isWinner = FHE.eq(ticket.encryptedCondition, FHE.asEuint8(market.winningCondition));
+        euint64 payoutScaled = FHE.mul(ticket.encryptedStake, FHE.asEuint64(market.payoutRatio));
+        euint64 finalPayoutScaled = FHE.select(isWinner, payoutScaled, FHE.asEuint64(0));
+
+        return finalPayoutScaled;
+    }
+
+    function requestClaim(uint256 ticketId) external returns (uint256 requestId) {
         ForecastTicket storage ticket = tickets[ticketId];
         require(ticket.bettor == msg.sender, "Not owner");
         require(!ticket.claimed, "Already claimed");
 
         CityMarket storage market = markets[ticket.cityId];
         require(market.settled, "Not settled");
-        require(market.payoutRatio > 0, "No payout");
 
         ticket.claimed = true;
 
-        euint8 condition = FHE.fromExternal(externalEuint8.wrap(ticket.encryptedCondition), proofCondition);
-        euint64 stake = FHE.fromExternal(externalEuint64.wrap(ticket.encryptedStake), proofStake);
-
-        ebool isWinner = FHE.eq(condition, FHE.asEuint8(market.winningCondition));
-        euint64 payoutScaled = FHE.mul(stake, FHE.asEuint64(market.payoutRatio));
-
         emit ForecastPaid(ticketId, msg.sender, 0);
+        return 0;
     }
 
     function getCityMarket(uint256 cityId) external view returns (

@@ -65,6 +65,14 @@ declare module "hardhat/types/runtime" {
       name: "WeatherWagerBook",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.WeatherWagerBook__factory>;
+    getContractFactory(
+      name: "WeatherWagerBookFixed",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.WeatherWagerBookFixed__factory>;
+    getContractFactory(
+      name: "WeatherWagerMock",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.WeatherWagerMock__factory>;
 
     getContractAt(
       name: "EthereumConfig",
@@ -131,6 +139,16 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.WeatherWagerBook>;
+    getContractAt(
+      name: "WeatherWagerBookFixed",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.WeatherWagerBookFixed>;
+    getContractAt(
+      name: "WeatherWagerMock",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.WeatherWagerMock>;
 
     deployContract(
       name: "EthereumConfig",
@@ -184,6 +202,14 @@ declare module "hardhat/types/runtime" {
       name: "WeatherWagerBook",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.WeatherWagerBook>;
+    deployContract(
+      name: "WeatherWagerBookFixed",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WeatherWagerBookFixed>;
+    deployContract(
+      name: "WeatherWagerMock",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WeatherWagerMock>;
 
     deployContract(
       name: "EthereumConfig",
@@ -250,6 +276,16 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.WeatherWagerBook>;
+    deployContract(
+      name: "WeatherWagerBookFixed",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WeatherWagerBookFixed>;
+    deployContract(
+      name: "WeatherWagerMock",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WeatherWagerMock>;
 
     // default types
     getContractFactory(

@@ -11,9 +11,12 @@
  * - Comprehensive error handling and user-friendly error messages
  * - Type-safe encryption functions for weather forecasts
  * - Initialization state tracking for UI feedback
+ * - Uses hexlify for proper byte-to-hex conversion (following PriceGuess best practices)
  *
  * @see https://docs.zama.ai/fhevm for FHE documentation
  */
+
+import { hexlify } from 'ethers';
 
 // ===========================
 // Type Declarations
@@ -28,21 +31,16 @@ declare global {
     relayerSDK: {
       initSDK: () => Promise<void>;
       createInstance: (config: SepoliaConfigType) => Promise<FheInstance>;
-      SepoliaConfig: SepoliaConfigType;
+      SepoliaConfig: SepoliaConfigType; // Built-in config (may be outdated)
     };
   }
 }
 
 /**
- * Sepolia network configuration for FHE
+ * NOTE: We use the SDK's built-in SepoliaConfig instead of defining our own.
+ * This is because the SDK's config has the actually-deployed contract addresses on Sepolia,
+ * while @fhevm/solidity@0.8.0's ZamaConfig has newer addresses that aren't fully deployed yet.
  */
-interface SepoliaConfigType {
-  chainId: number;
-  gatewayChainId: number;
-  aclContractAddress: string;
-  kmsContractAddress: string;
-  relayerUrl: string;
-}
 
 /**
  * FHE Instance type (from SDK)
@@ -181,8 +179,9 @@ async function initializeFheWithRetry(attempt: number = 1): Promise<FheInstance>
     await withTimeout(initSDK(), INIT_TIMEOUT_MS);
     console.log('[FHE] ✓ WASM runtime ready');
 
-    // Create FHE instance with Sepolia configuration
-    console.log('[FHE] Fetching Sepolia public parameters...');
+    // Create FHE instance with SDK's built-in Sepolia configuration
+    // This uses the actually-deployed Sepolia contracts
+    console.log('[FHE] Creating FHE instance with SepoliaConfig...');
     const instance = await withTimeout(createInstance(SepoliaConfig), INIT_TIMEOUT_MS);
     console.log('[FHE] ✓ FHE instance ready');
 
@@ -312,7 +311,7 @@ export type WeatherConditionIndex = typeof WEATHER_CONDITIONS[keyof typeof WEATH
 export interface EncryptedForecast {
   conditionHandle: `0x${string}`;  // Encrypted weather condition (euint8)
   stakeHandle: `0x${string}`;      // Encrypted stake amount (euint64)
-  proof: `0x${string}`;             // Zero-knowledge proof for verification
+  attestation: `0x${string}`;      // Zero-knowledge proof for verification (called attestation following PriceGuess pattern)
 }
 
 /**
@@ -409,21 +408,26 @@ export async function encryptForecastPayload(
     // Encrypt all inputs and generate zero-knowledge proof
     // This proves that the encryption was done correctly without revealing the data
     console.log('[FHE] Generating encrypted handles and ZK proof...');
-    const encrypted = await input.encrypt();
+    const { handles, inputProof } = await input.encrypt();
 
-    // Extract handles in order (first add8 → first handle, first add64 → second handle)
-    const [conditionHandle, stakeHandle] = encrypted.handles as `0x${string}`[];
+    // Use hexlify from ethers.js to convert byte arrays to hex strings
+    // This follows PriceGuess best practices and ensures proper conversion
+    const conditionHandle = hexlify(handles[0]) as `0x${string}`;
+    const stakeHandle = hexlify(handles[1]) as `0x${string}`;
+    const attestation = hexlify(inputProof) as `0x${string}`;
 
     console.log('[FHE] ✓ Encryption successful', {
       conditionHandle: conditionHandle.substring(0, 10) + '...',
       stakeHandle: stakeHandle.substring(0, 10) + '...',
-      proofLength: encrypted.inputProof.length,
+      attestationLength: attestation.length,
+      conditionType: typeof conditionHandle,
+      stakeType: typeof stakeHandle,
     });
 
     return {
       conditionHandle,
       stakeHandle,
-      proof: encrypted.inputProof as `0x${string}`,
+      attestation,
     };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown encryption error';

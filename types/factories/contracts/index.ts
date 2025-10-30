@@ -2,3 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export { WeatherWagerBook__factory } from "./WeatherWagerBook__factory";
+export { WeatherWagerBookFixed__factory } from "./WeatherWagerBookFixed__factory";
+export { WeatherWagerMock__factory } from "./WeatherWagerMock__factory";

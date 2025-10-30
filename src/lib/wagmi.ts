@@ -12,7 +12,7 @@
  */
 
 import { getDefaultConfig, getDefaultWallets } from '@rainbow-me/rainbowkit';
-import { sepolia } from 'wagmi/chains';
+import { sepolia, hardhat } from 'wagmi/chains';
 import { http } from 'viem';
 import {
   metaMaskWallet,
@@ -71,9 +71,10 @@ export const wagmiConfig = getDefaultConfig({
   appName: APP_NAME,
   projectId: PROJECT_ID,
 
-  // Only Sepolia testnet for FHE development
+  // Sepolia testnet for FHE development + Hardhat local for testing
   // Zama FHE is currently only available on Sepolia
-  chains: [sepolia],
+  // Hardhat local network for development and testing
+  chains: [sepolia, hardhat],
 
   // Use reliable public RPC endpoints with HTTP transport
   // Multiple fallback URLs can be added for better reliability
@@ -81,6 +82,10 @@ export const wagmiConfig = getDefaultConfig({
     [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com', {
       timeout: 30_000, // 30 second timeout for FHE operations
       retryCount: 3,   // Retry failed requests 3 times
+    }),
+    [hardhat.id]: http('http://localhost:8545', {
+      timeout: 30_000,
+      retryCount: 3,
     }),
   },
 
@@ -96,10 +101,10 @@ export const wagmiConfig = getDefaultConfig({
 // ===========================
 
 /**
- * Sepolia Chain Configuration
+ * Chain Configuration
  * Export for use in other modules (viem clients, etc.)
  */
-export { sepolia };
+export { sepolia, hardhat };
 
 /**
  * Chain metadata for better UX
@@ -114,6 +119,16 @@ export const CHAIN_METADATA = {
     },
     blockExplorer: 'https://sepolia.etherscan.io',
     faucet: 'https://sepoliafaucet.com',
+  },
+  [hardhat.id]: {
+    name: 'Localhost 8545',
+    nativeCurrency: {
+      name: 'ETH',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    blockExplorer: undefined,
+    faucet: undefined,
   },
 } as const;
 

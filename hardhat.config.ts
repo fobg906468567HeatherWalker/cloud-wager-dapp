@@ -1,5 +1,5 @@
 import { type HardhatUserConfig } from "hardhat/config";
-import "@fhevm/hardhat-plugin";
+// import "@fhevm/hardhat-plugin"; // Temporarily disabled for deployment
 import "@nomicfoundation/hardhat-toolbox";
 import "./tasks/accounts";
 import "dotenv/config";

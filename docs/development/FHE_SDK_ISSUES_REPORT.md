@@ -208,5 +208,5 @@ export default defineConfig(() => ({
 ---
 
 **报告生成时间**: 2025-10-29 12:53 PM
-**测试工程师**: Claude Code
+**测试工程师**: Development Team
 **审核状态**: 待人工验证

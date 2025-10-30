@@ -6,7 +6,7 @@
  */
 
 require("@nomicfoundation/hardhat-toolbox");
-require("@fhevm/hardhat-plugin");
+// require("@fhevm/hardhat-plugin"); // Temporarily disabled for deployment
 require("dotenv/config");
 
 /** @type import('hardhat/config').HardhatUserConfig */
@@ -58,6 +58,10 @@ module.exports = {
     apiKey: {
       sepolia: process.env.ETHERSCAN_API_KEY || "",
     },
+  },
+
+  fhEVM: {
+    gatewayUrl: process.env.FHE_GATEWAY_URL || "https://gateway.fhenet.io",
   },
 
   paths: {

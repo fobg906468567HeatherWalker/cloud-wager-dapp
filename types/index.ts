@@ -34,3 +34,7 @@ export type { IERC165 } from "./@openzeppelin/contracts/utils/introspection/IERC
 export { IERC165__factory } from "./factories/@openzeppelin/contracts/utils/introspection/IERC165__factory";
 export type { WeatherWagerBook } from "./contracts/WeatherWagerBook";
 export { WeatherWagerBook__factory } from "./factories/contracts/WeatherWagerBook__factory";
+export type { WeatherWagerBookFixed } from "./contracts/WeatherWagerBookFixed";
+export { WeatherWagerBookFixed__factory } from "./factories/contracts/WeatherWagerBookFixed__factory";
+export type { WeatherWagerMock } from "./contracts/WeatherWagerMock";
+export { WeatherWagerMock__factory } from "./factories/contracts/WeatherWagerMock__factory";

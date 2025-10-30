@@ -2,3 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { WeatherWagerBook } from "./WeatherWagerBook";
+export type { WeatherWagerBookFixed } from "./WeatherWagerBookFixed";
+export type { WeatherWagerMock } from "./WeatherWagerMock";

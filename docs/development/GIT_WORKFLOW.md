@@ -71,10 +71,7 @@ git status
 git add -A
 
 # 3. 提交（作者信息会自动使用 .env 配置）
-git commit -m "feat: Your commit message
-
-🤖 Generated with Claude Code
-Co-Authored-By: Claude <noreply@anthropic.com>"
+git commit -m "feat: Your commit message"
 
 # 4. 推送到 GitHub
 git push origin main

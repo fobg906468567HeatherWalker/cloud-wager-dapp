@@ -1,0 +1,982 @@
+{
+  "config": {
+    "configFile": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/playwright.config.ts",
+    "rootDir": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:8080",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "weatherwager.spec.ts",
+      "file": "weatherwager.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "WeatherWager DApp - E2E Tests",
+          "file": "weatherwager.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "1. Landing Page & Navigation",
+              "file": "weatherwager.spec.ts",
+              "line": 27,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should load landing page successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 4526,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Landing page loaded successfully\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:40:34.916Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-11284b655518b729fa06",
+                  "file": "weatherwager.spec.ts",
+                  "line": 28,
+                  "column": 9
+                },
+                {
+                  "title": "should have navigation elements",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 7759,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: /connect/i })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /connect/i })\u001b[22m\n",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: /connect/i })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /connect/i })\u001b[22m\n\n    at /Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/e2e/weatherwager.spec.ts:49:35",
+                            "location": {
+                              "file": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/e2e/weatherwager.spec.ts",
+                              "column": 35,
+                              "line": 49
+                            },
+                            "snippet": "  47 |       // Check for Connect Wallet button\n  48 |       const connectButton = page.getByRole('button', { name: /connect/i });\n> 49 |       await expect(connectButton).toBeVisible();\n     |                                   ^\n  50 |\n  51 |       console.log('✅ Navigation elements verified');\n  52 |     });"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/e2e/weatherwager.spec.ts",
+                                "column": 35,
+                                "line": 49
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: /connect/i })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /connect/i })\u001b[22m\n\n\n  47 |       // Check for Connect Wallet button\n  48 |       const connectButton = page.getByRole('button', { name: /connect/i });\n> 49 |       await expect(connectButton).toBeVisible();\n     |                                   ^\n  50 |\n  51 |       console.log('✅ Navigation elements verified');\n  52 |     });\n    at /Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/e2e/weatherwager.spec.ts:49:35"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:40:40.088Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/test-results/weatherwager-WeatherWager--51185-ld-have-navigation-elements-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/test-results/weatherwager-WeatherWager--51185-ld-have-navigation-elements-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/test-results/weatherwager-WeatherWager--51185-ld-have-navigation-elements-chromium/error-context.md"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/Users/lishuai/Documents/crypto/zama-developer-program/projects/06_WeatherWager/e2e/weatherwager.spec.ts",
+                            "column": 35,
+                            "line": 49
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-c52e69e847f4e20ddd16",
+                  "file": "weatherwager.spec.ts",
+                  "line": 44,
+                  "column": 9
+                },
+                {
+                  "title": "should navigate to DApp page",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2761,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:40:48.408Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-2179cc6ca13b9dd68756",
+                  "file": "weatherwager.spec.ts",
+                  "line": 54,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "2. FHE SDK Initialization",
+              "file": "weatherwager.spec.ts",
+              "line": 71,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should initialize FHE SDK on page load",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2530,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ FHE SDK already initialized\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:40:51.306Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-01385a01a1b725f552e5",
+                  "file": "weatherwager.spec.ts",
+                  "line": 72,
+                  "column": 9
+                },
+                {
+                  "title": "should show FHE status indicator",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 7495,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ FHE status verified\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:40:53.851Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-fed1dee083764d6c1cc7",
+                  "file": "weatherwager.spec.ts",
+                  "line": 87,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "3. Network Detection",
+              "file": "weatherwager.spec.ts",
+              "line": 105,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should detect correct network",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2543,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:01.353Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-dbb00057fd4f91496273",
+                  "file": "weatherwager.spec.ts",
+                  "line": 106,
+                  "column": 9
+                },
+                {
+                  "title": "should show network warning if on wrong network",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2797,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Correct network detected\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:03.907Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-6820564e2128b7dcd935",
+                  "file": "weatherwager.spec.ts",
+                  "line": 119,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "4. City Market Selection",
+              "file": "weatherwager.spec.ts",
+              "line": 138,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display available cities",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 7250,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Found city: New York\n"
+                            },
+                            {
+                              "text": "✅ Found city: London\n"
+                            },
+                            {
+                              "text": "✅ Found city: Tokyo\n"
+                            },
+                            {
+                              "text": "✅ Found city: Paris\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:06.716Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-08ad018ceb1c0e5b8c4e",
+                  "file": "weatherwager.spec.ts",
+                  "line": 139,
+                  "column": 9
+                },
+                {
+                  "title": "should display market information",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 7163,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:13.976Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-df27a774184b527510bb",
+                  "file": "weatherwager.spec.ts",
+                  "line": 157,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "5. Weather Condition Selection",
+              "file": "weatherwager.spec.ts",
+              "line": 179,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display weather condition options",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 7476,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Found weather condition: Sunny\n"
+                            },
+                            {
+                              "text": "✅ Found weather condition: Rainy\n"
+                            },
+                            {
+                              "text": "✅ Found weather condition: Snowy\n"
+                            },
+                            {
+                              "text": "✅ Found weather condition: Cloudy\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:21.147Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-fe12b5508183796ba651",
+                  "file": "weatherwager.spec.ts",
+                  "line": 180,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "6. Responsive Design",
+              "file": "weatherwager.spec.ts",
+              "line": 205,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should work on mobile viewport",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 3841,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Mobile viewport verified\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:28.633Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-bda75b4f411eeefd162e",
+                  "file": "weatherwager.spec.ts",
+                  "line": 206,
+                  "column": 9
+                },
+                {
+                  "title": "should work on tablet viewport",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 4139,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Tablet viewport verified\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:32.483Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-dc3babbc0173f2b87ae0",
+                  "file": "weatherwager.spec.ts",
+                  "line": 218,
+                  "column": 9
+                },
+                {
+                  "title": "should work on desktop viewport",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 4219,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Desktop viewport verified\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:36.637Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-380c127265486118a098",
+                  "file": "weatherwager.spec.ts",
+                  "line": 229,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "7. Error Handling & Recovery",
+              "file": "weatherwager.spec.ts",
+              "line": 245,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should handle page load errors gracefully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2802,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ No error boundary triggered\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:40.863Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-96c5015c906bc95f9961",
+                  "file": "weatherwager.spec.ts",
+                  "line": 246,
+                  "column": 9
+                },
+                {
+                  "title": "should show loading states",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2568,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Loading states verified\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:43.672Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-cff88d77978c418eb289",
+                  "file": "weatherwager.spec.ts",
+                  "line": 259,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "8. Accessibility Checks",
+              "file": "weatherwager.spec.ts",
+              "line": 275,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should have proper heading hierarchy",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2719,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Heading hierarchy verified\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:46.248Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-a373aa74d34dd5b2cdac",
+                  "file": "weatherwager.spec.ts",
+                  "line": 276,
+                  "column": 9
+                },
+                {
+                  "title": "should have alt text for images",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2912,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ All 0 images have alt text\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:48.975Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-b46d1aa443ad82204ea9",
+                  "file": "weatherwager.spec.ts",
+                  "line": 285,
+                  "column": 9
+                },
+                {
+                  "title": "should have proper ARIA labels",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2565,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "✅ Found 0 elements with ARIA labels\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:51.899Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-cc61a81d852343b1a40e",
+                  "file": "weatherwager.spec.ts",
+                  "line": 300,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "9. Performance Metrics",
+              "file": "weatherwager.spec.ts",
+              "line": 315,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should load page within acceptable time",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 4211,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "⏱️  Page load time: 3794ms\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:54.469Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-5ebd90e94266417dcd34",
+                  "file": "weatherwager.spec.ts",
+                  "line": 316,
+                  "column": 9
+                },
+                {
+                  "title": "should have no console errors",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 4257,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "⚠️  Console errors found: 3\n"
+                            },
+                            {
+                              "text": "   - Base Account SDK requires the Cross-Origin-Opener-Policy header to not be set to 'same-origin'. This is to ensure that the SDK can communicate with the Base Account app.\n\nPlease see https://docs.base.org/smart-wallet/quickstart#cross-origin-opener-policy for more information.\n"
+                            },
+                            {
+                              "text": "   - Failed to load resource: the server responded with a status of 400 ()\n"
+                            },
+                            {
+                              "text": "   - Failed to load resource: the server responded with a status of 403 ()\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-10-29T18:41:58.689Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "a991debc99f3606f2bcd-441475eaaa42857d666b",
+                  "file": "weatherwager.spec.ts",
+                  "line": 330,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-10-29T18:40:32.471Z",
+    "duration": 90572.67199999999,
+    "expected": 19,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
